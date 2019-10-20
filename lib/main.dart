@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Slider',
       theme: ThemeData(
-        primaryColor: Color(0xffff520d),
+        primaryColor: Colors.blueGrey,
         //primaryColor: Color(0xff512ea8),
          //primaryColor: Color(0xff662d8c),
       ),

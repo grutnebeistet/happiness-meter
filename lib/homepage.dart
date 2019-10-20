@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:happiness_meter/custom_slider_thumb.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/services.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'happinessslider.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +23,8 @@ class _HomePageState extends State<HomePage> {
   var colorGreen = Color(0xff009351);
   var colorYellow = Color(0xffF4C223);
   var colorRed = Color(0xffD8222A);
+
+  var saveLabel = 'Save';
 
   void updateBlueValue(double newValue) {
     setState(() {
@@ -51,8 +54,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void updateSaveLabel(bool saved) {
+    setState(() {
+      if (saved)
+        saveLabel = "Saved";
+      else
+        saveLabel = "Save";
+    });
+  }
+
   void updateAverage() {
     average = (blueValue + greenValue + yellowValue + redValue) / 4;
+    updateSaveLabel(false);
   }
 
   @override
@@ -79,18 +92,43 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Container(
-                  height: 75,
+                  height: 55,
                   width: double.infinity,
-                  padding: EdgeInsets.all(20),
-                  child: LinearProgressIndicator(
-                    backgroundColor: Colors.white,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.purple),
-                    value: average / 10,
-                  )),
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child:  LinearPercentIndicator(
+//                  width: MediaQuery.of(context).size.width - 50,
+                  animation: false,
+                  lineHeight: 20.0,
+//                  animationDuration: 500,
+                  percent: average/10,
+                  linearStrokeCap: LinearStrokeCap.roundAll,
+                  progressColor: Colors.purple,
+                ),
+//                  child: LinearProgressIndicator(
+//                    backgroundColor: Colors.white,
+//                    valueColor: AlwaysStoppedAnimation<Color>(Colors.purple),
+//                    value: average / 10,
+//                  )
+              ),
+              Container(
+                width: double.infinity,
+                height: 30,
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
+                    "1       2       3       4       5       6       7       8       9       10",textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
               const SizedBox(height: 30),
               RaisedButton(
-                onPressed: () {},
-                child: const Text('Save', style: TextStyle(fontSize: 20)),
+                color: Colors.blueGrey,
+                onPressed: () {
+                  updateSaveLabel(saveLabel == "Save");
+                },
+//                child: const Text(saveLabel, style: TextStyle(fontSize: 20)),
+                child: Text(saveLabel, style: TextStyle(fontSize: 20),),
               ),
               Expanded(
                 child: Align(
@@ -139,21 +177,21 @@ class _HomePageState extends State<HomePage> {
                                               .copyWith(
 //                                                      trackShape:
 //                                                          CustomSliderTrack(),
-                                                  activeTrackColor:
-                                                      Color(0xff005093),
-                                                  inactiveTrackColor:
-                                                      Color(0xffffffff),
-                                                  trackHeight: 10.0,
-                                                  thumbColor: Color(0xff005093),
-                                                  inactiveTickMarkColor:
-                                                      Color(0xff005093),
-                                                  activeTickMarkColor:
-                                                      Color(0xff005093),
-                                                  thumbShape:
-                                                      CustomSliderThumb()
+                                              activeTrackColor:
+                                              Color(0xff005093),
+                                              inactiveTrackColor:
+                                              Color(0xffffffff),
+                                              trackHeight: 10.0,
+                                              thumbColor: Color(0xff005093),
+                                              inactiveTickMarkColor:
+                                              Color(0xff005093),
+                                              activeTickMarkColor:
+                                              Color(0xff005093),
+                                              thumbShape:
+                                              CustomSliderThumb()
 //                                            thumbShape: RoundSliderThumbShape(
 //                                                enabledThumbRadius: 24.0),
-                                                  ),
+                                          ),
                                           child: RotatedBox(
                                             quarterTurns: 3,
                                             child: Slider(
@@ -215,14 +253,14 @@ class _HomePageState extends State<HomePage> {
                                     Expanded(
                                       child: SliderTheme(
                                           data:
-                                              SliderTheme.of(context).copyWith(
+                                          SliderTheme.of(context).copyWith(
                                             activeTrackColor: colorGreen,
                                             inactiveTrackColor:
-                                                Color(0xFFC8E6C9),
+                                            Color(0xFFC8E6C9),
                                             trackHeight: 10.0,
                                             thumbColor: colorGreen,
                                             inactiveTickMarkColor:
-                                                Color(0xFFC8E6C9),
+                                            Color(0xFFC8E6C9),
                                             activeTickMarkColor: colorGreen,
                                             thumbShape: CustomSliderThumb(),
 //                                            thumbShape: RoundSliderThumbShape(
@@ -294,14 +332,14 @@ class _HomePageState extends State<HomePage> {
                                     Expanded(
                                       child: SliderTheme(
                                           data:
-                                              SliderTheme.of(context).copyWith(
+                                          SliderTheme.of(context).copyWith(
                                             activeTrackColor: colorYellow,
                                             inactiveTrackColor:
-                                                Color(0xFFFFE0B2),
+                                            Color(0xFFFFFFFF),
                                             trackHeight: 10.0,
                                             thumbColor: colorYellow,
                                             inactiveTickMarkColor:
-                                                Color(0xFFFFE0B2),
+                                            Color(0xFFFFFFFF),
                                             activeTickMarkColor: colorYellow,
                                             thumbShape: CustomSliderThumb(),
 //                                            thumbShape: RoundSliderThumbShape(
@@ -374,14 +412,14 @@ class _HomePageState extends State<HomePage> {
                                     Expanded(
                                       child: SliderTheme(
                                           data:
-                                              SliderTheme.of(context).copyWith(
+                                          SliderTheme.of(context).copyWith(
                                             activeTrackColor: colorRed,
                                             inactiveTrackColor:
-                                                Color(0xFFFFCDD2),
+                                            Color(0xFFFFCDD2),
                                             trackHeight: 10.0,
                                             thumbColor: colorRed,
                                             inactiveTickMarkColor:
-                                                Color(0xFFFFCDD2),
+                                            Color(0xFFFFCDD2),
                                             activeTickMarkColor: colorRed,
                                             thumbShape: CustomSliderThumb(),
 //                                            thumbShape: RoundSliderThumbShape(
