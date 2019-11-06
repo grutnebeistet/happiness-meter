@@ -19,6 +19,8 @@ class _HomePageState extends State<HomePage> {
   var yellowValue = 0.0;
   var redValue = 0.0;
 
+//   var blueSlider = HappinessSlider("Blue", colorBlue, colorBlue, _updateBlueValue);
+
   var colorBlue = Color(0xff005093);
   var colorGreen = Color(0xff009351);
   var colorYellow = Color(0xffF4C223);
@@ -26,28 +28,28 @@ class _HomePageState extends State<HomePage> {
 
   var saveLabel = 'Save';
 
-  void updateBlueValue(double newValue) {
+  _updateBlueValue(double newValue) {
     setState(() {
       blueValue = newValue;
       updateAverage();
     });
   }
 
-  void updateGreenValue(double newValue) {
+  _updateGreenValue(double newValue) {
     setState(() {
       greenValue = newValue;
       updateAverage();
     });
   }
 
-  void updateYellowValue(double newValue) {
+  _updateYellowValue(double newValue) {
     setState(() {
       yellowValue = newValue;
       updateAverage();
     });
   }
 
-  void updateRedValue(double newValue) {
+  _updateRedValue(double newValue) {
     setState(() {
       redValue = newValue;
       updateAverage();
@@ -92,15 +94,15 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Container(
-                  height: 55,
-                  width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child:  LinearPercentIndicator(
+                height: 55,
+                width: double.infinity,
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: LinearPercentIndicator(
 //                  width: MediaQuery.of(context).size.width - 50,
                   animation: false,
                   lineHeight: 20.0,
 //                  animationDuration: 500,
-                  percent: average/10,
+                  percent: average / 10,
                   linearStrokeCap: LinearStrokeCap.roundAll,
                   progressColor: Colors.purple,
                 ),
@@ -117,7 +119,8 @@ class _HomePageState extends State<HomePage> {
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: Text(
-                    "1       2       3       4       5       6       7       8       9       10",textAlign: TextAlign.center,
+                    "1       2       3       4       5       6       7       8       9       10",
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -127,8 +130,10 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   updateSaveLabel(saveLabel == "Save");
                 },
-//                child: const Text(saveLabel, style: TextStyle(fontSize: 20)),
-                child: Text(saveLabel, style: TextStyle(fontSize: 20),),
+                child: Text(
+                  saveLabel,
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
               Expanded(
                 child: Align(
@@ -137,80 +142,14 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget>[
                       Container(
                         child: Material(
-                          color: Color(0xffE5E5E5),
+                            color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
-                          borderRadius: BorderRadius.circular(24.0),
-                          shadowColor: Color(0x802196F3),
-                          child: Container(
-                            width: sliderWidth,
-                            height: sliderHeight,
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 1,
-                                  child: Text(
-                                    "PERCEPTIE",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color(0xff005093),
-                                      fontSize: 24,
-                                    ),
-                                  ),
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 32,
-                                          child: Text(
-                                            blueValue.toInt().toString(),
-                                            style: TextStyle(
-                                                color: Color(0xff005093),
-                                                fontSize: 24.0),
-                                          )),
-                                    ),
-                                    Expanded(
-                                      child: SliderTheme(
-                                          data: SliderTheme.of(context)
-                                              .copyWith(
-//                                                      trackShape:
-//                                                          CustomSliderTrack(),
-                                              activeTrackColor:
-                                              Color(0xff005093),
-                                              inactiveTrackColor:
-                                              Color(0xffffffff),
-                                              trackHeight: 10.0,
-                                              thumbColor: Color(0xff005093),
-                                              inactiveTickMarkColor:
-                                              Color(0xff005093),
-                                              activeTickMarkColor:
-                                              Color(0xff005093),
-                                              thumbShape:
-                                              CustomSliderThumb()
-//                                            thumbShape: RoundSliderThumbShape(
-//                                                enabledThumbRadius: 24.0),
-                                          ),
-                                          child: RotatedBox(
-                                            quarterTurns: 3,
-                                            child: Slider(
-                                              min: 0.0,
-                                              max: 10.0,
-                                              divisions: 10,
-                                              value: blueValue,
-                                              onChanged: (newValue) {
-                                                updateBlueValue(newValue);
-                                              },
-                                            ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                            borderRadius: BorderRadius.circular(24.0),
+                            shadowColor: Color(0x802196F3),
+                            child: Container(
+                              child:  HappinessSlider("PERCEPTIE", colorBlue,
+                                  colorBlue, _updateBlueValue),
+                            )),
                         margin: EdgeInsets.all(10),
                       ),
                       Container(
@@ -221,74 +160,8 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(24.0),
                           shadowColor: Color(0xFFA5D6A7),
                           child: Container(
-                            width: sliderWidth,
-                            height: sliderHeight,
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 1,
-                                  child: Text(
-                                    "ACCEPTATIE",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: colorGreen,
-                                      fontSize: 24,
-                                    ),
-                                  ),
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 32,
-                                          child: Text(
-                                            greenValue.toInt().toString(),
-                                            style: TextStyle(
-                                                color: colorGreen,
-                                                fontSize: 24.0),
-                                          )),
-                                    ),
-                                    Expanded(
-                                      child: SliderTheme(
-                                          data:
-                                          SliderTheme.of(context).copyWith(
-                                            activeTrackColor: colorGreen,
-                                            inactiveTrackColor:
-                                            Color(0xFFC8E6C9),
-                                            trackHeight: 10.0,
-                                            thumbColor: colorGreen,
-                                            inactiveTickMarkColor:
-                                            Color(0xFFC8E6C9),
-                                            activeTickMarkColor: colorGreen,
-                                            thumbShape: CustomSliderThumb(),
-//                                            thumbShape: RoundSliderThumbShape(
-//                                                enabledThumbRadius: 24.0),
-//                                            overlayColor:
-//                                                Colors.purple.withAlpha(32),
-//                                            overlayShape:
-//                                                RoundSliderOverlayShape(
-//                                                    overlayRadius: 14.0),
-                                          ),
-                                          child: RotatedBox(
-                                            quarterTurns: 3,
-                                            child: Slider(
-                                              min: 0.0,
-                                              max: 10.0,
-                                              divisions: 10,
-                                              value: greenValue,
-                                              onChanged: (newValue) {
-                                                updateGreenValue(newValue);
-                                              },
-                                            ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                              child: new HappinessSlider("ACCEPTATIE",
+                                  colorGreen, colorGreen, _updateGreenValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -300,74 +173,8 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(24.0),
                           shadowColor: Color(0xFFFFCC80),
                           child: Container(
-                            width: sliderWidth,
-                            height: sliderHeight,
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 1,
-                                  child: Text(
-                                    "VISIE",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: colorYellow,
-                                      fontSize: 24,
-                                    ),
-                                  ),
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 32,
-                                          child: Text(
-                                            yellowValue.toInt().toString(),
-                                            style: TextStyle(
-                                                color: colorYellow,
-                                                fontSize: 24.0),
-                                          )),
-                                    ),
-                                    Expanded(
-                                      child: SliderTheme(
-                                          data:
-                                          SliderTheme.of(context).copyWith(
-                                            activeTrackColor: colorYellow,
-                                            inactiveTrackColor:
-                                            Color(0xFFFFFFFF),
-                                            trackHeight: 10.0,
-                                            thumbColor: colorYellow,
-                                            inactiveTickMarkColor:
-                                            Color(0xFFFFFFFF),
-                                            activeTickMarkColor: colorYellow,
-                                            thumbShape: CustomSliderThumb(),
-//                                            thumbShape: RoundSliderThumbShape(
-//                                                enabledThumbRadius: 24.0),
-//                                            overlayColor:
-//                                                Colors.purple.withAlpha(32),
-//                                            overlayShape:
-//                                                RoundSliderOverlayShape(
-//                                                    overlayRadius: 14.0),
-                                          ),
-                                          child: RotatedBox(
-                                            quarterTurns: 3,
-                                            child: Slider(
-                                              min: 0.0,
-                                              max: 10.0,
-                                              divisions: 10,
-                                              value: yellowValue,
-                                              onChanged: (newValue) {
-                                                updateYellowValue(newValue);
-                                              },
-                                            ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                              child: new HappinessSlider("VISIE", colorYellow,
+                                  colorYellow, _updateYellowValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -380,74 +187,8 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(24.0),
                           shadowColor: Color(0xFFEF9A9A),
                           child: Container(
-                            width: sliderWidth,
-                            height: sliderHeight,
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 1,
-                                  child: Text(
-                                    "ACTIE",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: colorRed,
-                                      fontSize: 24,
-                                    ),
-                                  ),
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 32,
-                                          child: Text(
-                                            redValue.toInt().toString(),
-                                            style: TextStyle(
-                                                color: colorRed,
-                                                fontSize: 24.0),
-                                          )),
-                                    ),
-                                    Expanded(
-                                      child: SliderTheme(
-                                          data:
-                                          SliderTheme.of(context).copyWith(
-                                            activeTrackColor: colorRed,
-                                            inactiveTrackColor:
-                                            Color(0xFFFFCDD2),
-                                            trackHeight: 10.0,
-                                            thumbColor: colorRed,
-                                            inactiveTickMarkColor:
-                                            Color(0xFFFFCDD2),
-                                            activeTickMarkColor: colorRed,
-                                            thumbShape: CustomSliderThumb(),
-//                                            thumbShape: RoundSliderThumbShape(
-//                                                enabledThumbRadius: 24.0),
-//                                            overlayColor:
-//                                                Colors.purple.withAlpha(32),
-//                                            overlayShape:
-//                                                RoundSliderOverlayShape(
-//                                                    overlayRadius: 14.0),
-                                          ),
-                                          child: RotatedBox(
-                                            quarterTurns: 3,
-                                            child: Slider(
-                                              min: 0.0,
-                                              max: 10.0,
-                                              divisions: 10,
-                                              value: redValue,
-                                              onChanged: (newValue) {
-                                                updateRedValue(newValue);
-                                              },
-                                            ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                              child: new HappinessSlider("ACTIE", colorRed,
+                                  colorRed, _updateRedValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),

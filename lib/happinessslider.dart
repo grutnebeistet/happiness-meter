@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:happiness_meter/custom_slider_thumb.dart';
+import 'package:happiness_meter/homepage.dart';
 
 class HappinessSlider extends StatefulWidget {
-  var primaryColor;
-  var inactiveColor;
-  var sliderTitle;
-  var value = 0.0;
+  final primaryColor;
+  final inactiveColor;
+  final sliderTitle;
 
-  HappinessSlider(this.sliderTitle, this.primaryColor, this.inactiveColor);
+  final ValueChanged<double> parentAction;
+
+  HappinessSlider(this.sliderTitle, this.primaryColor, this.inactiveColor,
+      this.parentAction);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _HappinessSliderState(
-        sliderTitle, primaryColor, inactiveColor, value);
+    return _HappinessSliderState(sliderTitle, primaryColor, inactiveColor);
   }
 }
 
@@ -22,15 +25,15 @@ class _HappinessSliderState extends State<HappinessSlider> {
   var primaryColor;
   var inactiveColor;
   var sliderTitle;
-  var value = 0.0;
+   var value = 0.0;
 
   _HappinessSliderState(
-      this.sliderTitle, this.primaryColor, this.inactiveColor, this.value);
+      this.sliderTitle, this.primaryColor, this.inactiveColor);
 
   void updateValue(double newValue) {
     setState(() {
       value = newValue;
-
+      widget.parentAction(newValue);
     });
   }
 
@@ -39,7 +42,7 @@ class _HappinessSliderState extends State<HappinessSlider> {
     return Container(
       child: Material(
         color: Color(0xffE5E5E5),
-        borderRadius: BorderRadius.circular(24.0),
+        borderRadius: BorderRadius.circular(10.0),
         shadowColor: inactiveColor,
         child: Container(
           width: sliderWidth,
@@ -78,11 +81,7 @@ class _HappinessSliderState extends State<HappinessSlider> {
                           thumbColor: primaryColor,
                           inactiveTickMarkColor: inactiveColor,
                           activeTickMarkColor: primaryColor,
-                          thumbShape:
-                              RoundSliderThumbShape(enabledThumbRadius: 16.0),
-                          overlayColor: Colors.purple.withAlpha(32),
-                          overlayShape:
-                              RoundSliderOverlayShape(overlayRadius: 14.0),
+                          thumbShape: CustomSliderThumb(),
                         ),
                         child: RotatedBox(
                           quarterTurns: 3,
@@ -103,7 +102,7 @@ class _HappinessSliderState extends State<HappinessSlider> {
           ),
         ),
       ),
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(4),
     );
   }
 }
