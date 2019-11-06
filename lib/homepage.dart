@@ -21,10 +21,14 @@ class _HomePageState extends State<HomePage> {
 
 //   var blueSlider = HappinessSlider("Blue", colorBlue, colorBlue, _updateBlueValue);
 
-  var colorBlue = Color(0xff005093);
-  var colorGreen = Color(0xff009351);
-  var colorYellow = Color(0xffF4C223);
-  var colorRed = Color(0xffD8222A);
+  var colorBlue = Color(0xff10069F);
+  var colorBlueInactive = Color(0x9910069F);
+  var colorGreen = Color(0xff00843D);
+  var colorGreenInactive = Color(0x9900843D);
+  var colorYellow = Color(0xffDAAA00);
+  var colorYellowInactive = Color(0x99DAAA00);
+  var colorRed = Color(0xffBA0C2F);
+  var colorRedInactive = Color(0x99BA0C2F);
 
   var saveLabel = 'Save';
 
@@ -104,7 +108,7 @@ class _HomePageState extends State<HomePage> {
 //                  animationDuration: 500,
                   percent: average / 10,
                   linearStrokeCap: LinearStrokeCap.roundAll,
-                  progressColor: Colors.purple,
+                  progressColor: Color(0xff7300a8),
                 ),
 //                  child: LinearProgressIndicator(
 //                    backgroundColor: Colors.white,
@@ -148,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                             shadowColor: Color(0x802196F3),
                             child: Container(
                               child:  HappinessSlider("PERCEPTIE", colorBlue,
-                                  colorBlue, _updateBlueValue),
+                                  colorBlueInactive, _updateBlueValue),
                             )),
                         margin: EdgeInsets.all(10),
                       ),
@@ -161,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                           shadowColor: Color(0xFFA5D6A7),
                           child: Container(
                               child: new HappinessSlider("ACCEPTATIE",
-                                  colorGreen, colorGreen, _updateGreenValue)),
+                                  colorGreen, colorGreenInactive, _updateGreenValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -174,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                           shadowColor: Color(0xFFFFCC80),
                           child: Container(
                               child: new HappinessSlider("VISIE", colorYellow,
-                                  colorYellow, _updateYellowValue)),
+                                  colorYellowInactive, _updateYellowValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -188,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                           shadowColor: Color(0xFFEF9A9A),
                           child: Container(
                               child: new HappinessSlider("ACTIE", colorRed,
-                                  colorRed, _updateRedValue)),
+                                  colorRedInactive, _updateRedValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),

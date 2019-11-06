@@ -28,6 +28,7 @@ class CustomSliderThumb extends SliderComponentShape {
     final Canvas canvas = context.canvas;
 
     final rect = Rect.fromCenter(center: center, width: 40, height: 80);
+
     final rectLine = Rect.fromCenter(center: center, width: 6, height: 64);
 
     final fillPaint = Paint()
@@ -39,12 +40,19 @@ class CustomSliderThumb extends SliderComponentShape {
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()
-      ..color =  Color(0xffE5E5E5)
+      ..color = Color(0xffE5E5E5)
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
-    canvas.drawRect(rect, fillPaint);
-    canvas.drawRect(rectLine, fillPaintLine);
-canvas.drawRect(rect, borderPaint);
+    Path rectPath = Path();
+    final rrect = RRect.fromRectXY(rect, 8, 8);
+    rectPath.addRRect(rrect);
+
+    Path linePath = Path();
+    linePath.addRect(rectLine);
+
+    canvas.drawPath(rectPath, fillPaint);
+    canvas.drawPath(linePath, fillPaintLine);
+    canvas.drawRect(rect, borderPaint);
   }
 }

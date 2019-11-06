@@ -14,7 +14,6 @@ class HappinessSlider extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _HappinessSliderState(sliderTitle, primaryColor, inactiveColor);
   }
 }
@@ -25,7 +24,7 @@ class _HappinessSliderState extends State<HappinessSlider> {
   var primaryColor;
   var inactiveColor;
   var sliderTitle;
-   var value = 0.0;
+  var value = 0.0;
 
   _HappinessSliderState(
       this.sliderTitle, this.primaryColor, this.inactiveColor);
