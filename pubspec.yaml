@@ -30,6 +30,10 @@ dependencies:
   sqflite: ^1.0.0
   percent_indicator: "^2.1.1"
 
+  path_provider: ^1.4.0
+
+  intl: ^0.15.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

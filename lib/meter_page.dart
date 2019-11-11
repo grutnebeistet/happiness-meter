@@ -3,14 +3,16 @@ import 'package:happiness_meter/custom_slider_thumb.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'happinessslider.dart';
+import 'happiness_slider.dart';
+import 'database_helpers.dart';
+import 'app_colors.dart';
 
-class HomePage extends StatefulWidget {
+class MeterPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _MeterPageState createState() => _MeterPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MeterPageState extends State<MeterPage> {
   final double sliderHeight = 420.0;
   final double sliderWidth = 70.0;
   var average = 0.0;
@@ -18,17 +20,6 @@ class _HomePageState extends State<HomePage> {
   var greenValue = 0.0;
   var yellowValue = 0.0;
   var redValue = 0.0;
-
-//   var blueSlider = HappinessSlider("Blue", colorBlue, colorBlue, _updateBlueValue);
-
-  var colorBlue = Color(0xff10069F);
-  var colorBlueInactive = Color(0x9910069F);
-  var colorGreen = Color(0xff00843D);
-  var colorGreenInactive = Color(0x9900843D);
-  var colorYellow = Color(0xffDAAA00);
-  var colorYellowInactive = Color(0x99DAAA00);
-  var colorRed = Color(0xffBA0C2F);
-  var colorRedInactive = Color(0x99BA0C2F);
 
   var saveLabel = 'Save';
 
@@ -86,11 +77,33 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
+              Navigator.pop(context);
               //
             }),
         title: Text("Happiness Meter"),
         actions: <Widget>[
-          IconButton(icon: Icon(FontAwesomeIcons.dyalog), onPressed: () {}),
+//          IconButton(icon: Icon(FontAwesomeIcons.dyalog), onPressed: () {}),
+          Container(
+            child: GestureDetector(
+              onTap: () {
+                if (saveLabel == 'Save') {
+                  updateSaveLabel(true);
+                  HappinessRecord record = HappinessRecord(DateTime.now().millisecondsSinceEpoch,
+                      blueValue, greenValue, yellowValue, redValue);
+                  DatabaseHelper.instance.insert(record);
+
+                  Navigator.pop(context);
+                }
+//              Navigator.pushNamed(context, "myRoute");
+              },
+              child: new Text(
+                saveLabel,
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(16.0),
+          ),
         ],
       ),
       body: Container(
@@ -100,43 +113,32 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 55,
                 width: double.infinity,
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: LinearPercentIndicator(
-//                  width: MediaQuery.of(context).size.width - 50,
-                  animation: false,
-                  lineHeight: 20.0,
-//                  animationDuration: 500,
-                  percent: average / 10,
-                  linearStrokeCap: LinearStrokeCap.roundAll,
-                  progressColor: Color(0xff7300a8),
+                padding: EdgeInsets.fromLTRB(20, 45, 20, 0),
+//                child: LinearPercentIndicator(
+////                  width: MediaQuery.of(context).size.width - 50,
+//                  animation: false,
+//                  lineHeight: 20.0,
+////                  animationDuration: 500,
+//                  percent: average / 10,
+//                  linearStrokeCap: LinearStrokeCap.roundAll,
+//                  progressColor: Color(0xff7300a8),
+//                ),
+                child: LinearProgressIndicator(
+                  backgroundColor: AppColors.colorPurpleInactive,
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.colorPurple),
+                  value: average / 10,
                 ),
-//                  child: LinearProgressIndicator(
-//                    backgroundColor: Colors.white,
-//                    valueColor: AlwaysStoppedAnimation<Color>(Colors.purple),
-//                    value: average / 10,
-//                  )
               ),
               Container(
                 width: double.infinity,
                 height: 30,
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                padding: EdgeInsets.fromLTRB(20, 5, 18, 0),
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: Text(
-                    "1       2       3       4       5       6       7       8       9       10",
+                    "0       1       2       3       4       5       6       7       8       9       10",
                     textAlign: TextAlign.center,
                   ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              RaisedButton(
-                color: Colors.blueGrey,
-                onPressed: () {
-                  updateSaveLabel(saveLabel == "Save");
-                },
-                child: Text(
-                  saveLabel,
-                  style: TextStyle(fontSize: 20),
                 ),
               ),
               Expanded(
@@ -151,8 +153,11 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(24.0),
                             shadowColor: Color(0x802196F3),
                             child: Container(
-                              child:  HappinessSlider("PERCEPTIE", colorBlue,
-                                  colorBlueInactive, _updateBlueValue),
+                              child: HappinessSlider(
+                                  "PERCEPTIE",
+                                  AppColors.colorBlue,
+                                  AppColors.colorBlueInactive,
+                                  _updateBlueValue),
                             )),
                         margin: EdgeInsets.all(10),
                       ),
@@ -164,8 +169,11 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(24.0),
                           shadowColor: Color(0xFFA5D6A7),
                           child: Container(
-                              child: new HappinessSlider("ACCEPTATIE",
-                                  colorGreen, colorGreenInactive, _updateGreenValue)),
+                              child: HappinessSlider(
+                                  "ACCEPTATIE",
+                                  AppColors.colorGreen,
+                                  AppColors.colorGreenInactive,
+                                  _updateGreenValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -177,8 +185,11 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(24.0),
                           shadowColor: Color(0xFFFFCC80),
                           child: Container(
-                              child: new HappinessSlider("VISIE", colorYellow,
-                                  colorYellowInactive, _updateYellowValue)),
+                              child: HappinessSlider(
+                                  "VISIE",
+                                  AppColors.colorYellow,
+                                  AppColors.colorYellowInactive,
+                                  _updateYellowValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -191,14 +202,17 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(24.0),
                           shadowColor: Color(0xFFEF9A9A),
                           child: Container(
-                              child: new HappinessSlider("ACTIE", colorRed,
-                                  colorRedInactive, _updateRedValue)),
+                              child: HappinessSlider(
+                                  "ACTIE",
+                                  AppColors.colorRed,
+                                  AppColors.colorRedInactive,
+                                  _updateRedValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
                     ],
                   ),
-                  alignment: Alignment.bottomCenter,
+                  alignment: Alignment.center,
                 ),
               ),
             ],

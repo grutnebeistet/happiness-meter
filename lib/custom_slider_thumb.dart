@@ -45,7 +45,7 @@ class CustomSliderThumb extends SliderComponentShape {
       ..style = PaintingStyle.stroke;
 
     Path rectPath = Path();
-    final rrect = RRect.fromRectXY(rect, 8, 8);
+    final rrect = RRect.fromRectXY(rect, 6, 6);
     rectPath.addRRect(rrect);
 
     Path linePath = Path();

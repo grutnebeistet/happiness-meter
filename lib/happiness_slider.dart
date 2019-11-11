@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:happiness_meter/custom_slider_thumb.dart';
-import 'package:happiness_meter/homepage.dart';
+import 'package:happiness_meter/meter_page.dart';
 
 class HappinessSlider extends StatefulWidget {
   final primaryColor;
@@ -19,7 +19,7 @@ class HappinessSlider extends StatefulWidget {
 }
 
 class _HappinessSliderState extends State<HappinessSlider> {
-  final double sliderHeight = 420.0;
+  final double sliderHeight = 400.0;
   final double sliderWidth = 70.0;
   var primaryColor;
   var inactiveColor;
@@ -77,9 +77,8 @@ class _HappinessSliderState extends State<HappinessSlider> {
                           activeTrackColor: primaryColor,
                           inactiveTrackColor: inactiveColor,
                           trackHeight: 10.0,
-                          thumbColor: primaryColor,
                           inactiveTickMarkColor: inactiveColor,
-                          activeTickMarkColor: primaryColor,
+                          activeTickMarkColor: inactiveColor,
                           thumbShape: CustomSliderThumb(),
                         ),
                         child: RotatedBox(

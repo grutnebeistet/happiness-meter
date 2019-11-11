@@ -2,42 +2,47 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter/foundation.dart';
 
 // database table and column names
 final String tableHappinessRecords = 'happiness_records';
 final String columnId = '_id';
-final String columnPerceptie = 'perceptie';
-final String columnAcceptatie = 'acceptatie';
-final String columnVisie = 'visie';
-final String columnActie = 'actie';
+final String columnDateTime = 'date_time';
+final String columnBlue = 'perceptie';
+final String columnGreen = 'acceptatie';
+final String columnYellow = 'visie';
+final String columnRed = 'actie';
 
 // data model class
 class HappinessRecord {
   int id;
-  String date;
-  double perceptie;
-  double acceptatie;
-  double visie;
-  double actie;
+  int date;
+  double blueValue;
+  double greenValue;
+  double yellowValue;
+  double redValue;
 
-  HappinessRecord();
+  HappinessRecord(this.date, this.blueValue, this.greenValue, this.yellowValue,
+      this.redValue);
 
-  // convenience constructor to create a Word object
+  // convenience constructor to create a Happiness object
   HappinessRecord.fromMap(Map<String, dynamic> map) {
     id = map[columnId];
-    perceptie = map[columnPerceptie];
-    acceptatie = map[columnAcceptatie];
-    visie = map[columnVisie];
-    actie = map[columnActie];
+    date = map[columnDateTime];
+    blueValue = map[columnBlue];
+    greenValue = map[columnGreen];
+    yellowValue = map[columnYellow];
+    redValue = map[columnRed];
   }
 
-  // convenience method to create a Map from this Word object
+  // convenience method to create a Map from this Happiness object
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      columnPerceptie: perceptie,
-      columnAcceptatie: acceptatie,
-      columnVisie: visie,
-      columnActie: actie
+      columnDateTime: date,
+      columnBlue: blueValue,
+      columnGreen: greenValue,
+      columnYellow: yellowValue,
+      columnRed: redValue
     };
     if (id != null) {
       map[columnId] = id;
@@ -49,7 +54,7 @@ class HappinessRecord {
 // singleton class to manage the database
 class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
-  static final _databaseName = "MyDatabase.db";
+  static final _databaseName = "HappinessMeterDB.db";
 
   // Increment this version when you need to change the schema.
   static final _databaseVersion = 1;
@@ -83,31 +88,50 @@ class DatabaseHelper {
     await db.execute('''
               CREATE TABLE $tableHappinessRecords (
                 $columnId INTEGER PRIMARY KEY,
-                $columnPerceptie DOUBLE NOT NULL,
-                $columnAcceptatie DOUBLE NOT NULL,
-                $columnVisie DOUBLE NOT NULL,
-                $columnActie DOUBLE NOT NULL
+                $columnDateTime INTEGER NOT NULL,
+                $columnBlue DOUBLE NOT NULL,
+                $columnGreen DOUBLE NOT NULL,
+                $columnYellow DOUBLE NOT NULL,
+                $columnRed DOUBLE NOT NULL
               )
               ''');
   }
 
   // Database helper methods:
 
-  Future<int> insert(HappinessRecord word) async {
+  Future<int> insert(HappinessRecord record) async {
     Database db = await database;
-    int id = await db.insert(tableHappinessRecords, word.toMap());
+    int id = await db.insert(tableHappinessRecords, record.toMap());
+    debugPrint('inserted id: $id');
     return id;
   }
 
-  Future<HappinessRecord> queryWord(int id) async {
+  Future<List<HappinessRecord>> getAllHappinessRecords() async {
+    Database db = await database;
+    String sql =
+        "SELECT * FROM $tableHappinessRecords ORDER BY $columnDateTime DESC";
+
+    var result = await db.rawQuery(sql);
+    if (result.length == 0) return null;
+
+    List<HappinessRecord> list = result.map((item) {
+      return HappinessRecord.fromMap(item);
+    }).toList();
+
+    print(result);
+    return list;
+  }
+
+  Future<HappinessRecord> queryHappinessRecord(int id) async {
     Database db = await database;
     List<Map> maps = await db.query(tableHappinessRecords,
         columns: [
           columnId,
-          columnPerceptie,
-          columnAcceptatie,
-          columnVisie,
-          columnActie
+          columnDateTime,
+          columnBlue,
+          columnGreen,
+          columnYellow,
+          columnRed
         ],
         where: '$columnId = ?',
         whereArgs: [id]);
@@ -117,7 +141,17 @@ class DatabaseHelper {
     return null;
   }
 
-// TODO: queryAllWords()
+  Future<void> deleteRecord(id) async {
+    Database db = await database;
+    db.delete(tableHappinessRecords,
+    where: "$columnId = ?",
+    whereArgs: [id]);
+  }
+
+  Future<void> deleteAll() async {
+    Database db = await database;
+    db.delete(tableHappinessRecords);
+  }
 // TODO: delete(int id)
 // TODO: update(Word word)
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'homepage.dart';
+import 'package:happiness_meter/home_page.dart';
+import 'meter_page.dart';
 
 
 void main() => runApp(MyApp());
@@ -10,13 +11,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Slider',
+      title: 'Happiness Meter',
       theme: ThemeData(
         primaryColor: Colors.blueGrey,
-        //primaryColor: Color(0xff512ea8),
-         //primaryColor: Color(0xff662d8c),
       ),
-        home: HomePage(),
+        home: HomePage()
     );
   }
 }
