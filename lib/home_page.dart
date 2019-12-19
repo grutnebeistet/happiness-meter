@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happiness_meter/database_helpers.dart';
 import 'package:happiness_meter/meter_page.dart';
+import 'package:happiness_meter/record_details.dart';
 import 'database_helpers.dart';
 import 'app_colors.dart';
 import 'package:flutter/foundation.dart';
@@ -54,7 +55,15 @@ class _StateHomePage extends State<HomePage> {
 
                 return ListView(
                   children: snapshot.data
-                      .map((record) => Card(
+                      .map(
+                        (record) => GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RecordDetails(record.id)));
+                          },
+                          child: Card(
                             elevation: 8.0,
                             margin: new EdgeInsets.symmetric(
                                 horizontal: 10.0, vertical: 10.0),
@@ -109,20 +118,12 @@ class _StateHomePage extends State<HomePage> {
                                       ),
                                     ),
                                   ),
-
-//                                trailing: Icon(Icons.keyboard_arrow_right,
-//                                    color: Colors.white, size: 30.0),
-//                                onTap: () {
-//                          Navigator.push(
-//                              context,
-//                              MaterialPageRoute(
-//                                  builder: (context) =>
-//                                      DetailPage(lesson: lesson)));
-//                                },
                                 ),
                               ),
                             ),
-                          ))
+                          ),
+                        ),
+                      )
                       .toList(),
                 );
               },

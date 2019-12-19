@@ -13,6 +13,8 @@ class MeterPage extends StatefulWidget {
 }
 
 class _MeterPageState extends State<MeterPage> {
+   final textController = TextEditingController();
+
   final double sliderHeight = 420.0;
   final double sliderWidth = 70.0;
   var average = 0.0;
@@ -88,8 +90,13 @@ class _MeterPageState extends State<MeterPage> {
               onTap: () {
                 if (saveLabel == 'Save') {
                   updateSaveLabel(true);
-                  HappinessRecord record = HappinessRecord(DateTime.now().millisecondsSinceEpoch,
-                      blueValue, greenValue, yellowValue, redValue);
+                  HappinessRecord record = HappinessRecord(
+                      DateTime.now().millisecondsSinceEpoch,
+                      blueValue,
+                      greenValue,
+                      yellowValue,
+                      redValue, 
+                      textController.text);
                   DatabaseHelper.instance.insert(record);
 
                   Navigator.pop(context);
@@ -107,13 +114,13 @@ class _MeterPageState extends State<MeterPage> {
         ],
       ),
       body: Container(
-          color: Color(0xffE5E5E5),
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 55,
-                width: double.infinity,
-                padding: EdgeInsets.fromLTRB(20, 45, 20, 0),
+        color: Color(0xffE5E5E5),
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 55,
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(20, 45, 20, 0),
 //                child: LinearPercentIndicator(
 ////                  width: MediaQuery.of(context).size.width - 50,
 //                  animation: false,
@@ -123,100 +130,110 @@ class _MeterPageState extends State<MeterPage> {
 //                  linearStrokeCap: LinearStrokeCap.roundAll,
 //                  progressColor: Color(0xff7300a8),
 //                ),
-                child: LinearProgressIndicator(
-                  backgroundColor: AppColors.colorPurpleInactive,
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.colorPurple),
-                  value: average / 10,
+              child: LinearProgressIndicator(
+                backgroundColor: AppColors.colorPurpleInactive,
+                valueColor:
+                    AlwaysStoppedAnimation<Color>(AppColors.colorPurple),
+                value: average / 10,
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 30,
+              padding: EdgeInsets.fromLTRB(20, 5, 18, 0),
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  "0       1       2       3       4       5       6       7       8       9       10",
+                  textAlign: TextAlign.center,
                 ),
               ),
-              Container(
-                width: double.infinity,
-                height: 30,
-                padding: EdgeInsets.fromLTRB(20, 5, 18, 0),
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Text(
-                    "0       1       2       3       4       5       6       7       8       9       10",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Align(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: Material(
-                            color: Color(0xffE5E5E5),
-//                        elevation: 14.0,
-                            borderRadius: BorderRadius.circular(24.0),
-                            shadowColor: Color(0x802196F3),
-                            child: Container(
-                              child: HappinessSlider(
-                                  "PERCEPTIE",
-                                  AppColors.colorBlue,
-                                  AppColors.colorBlueInactive,
-                                  _updateBlueValue),
-                            )),
-                        margin: EdgeInsets.all(10),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        child: Material(
+            ),
+            Expanded(
+              child: Align(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      child: Material(
                           color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
                           borderRadius: BorderRadius.circular(24.0),
-                          shadowColor: Color(0xFFA5D6A7),
+                          shadowColor: Color(0x802196F3),
                           child: Container(
-                              child: HappinessSlider(
-                                  "ACCEPTATIE",
-                                  AppColors.colorGreen,
-                                  AppColors.colorGreenInactive,
-                                  _updateGreenValue)),
-                        ),
-//                      alignment: FractionalOffset.bottomRight,
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        child: Material(
-                          color: Color(0xffE5E5E5),
+                            child: HappinessSlider(
+                                "PERCEPTIE",
+                                AppColors.colorBlue,
+                                AppColors.colorBlueInactive,
+                                _updateBlueValue),
+                          )),
+                      margin: EdgeInsets.all(10),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      child: Material(
+                        color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
-                          borderRadius: BorderRadius.circular(24.0),
-                          shadowColor: Color(0xFFFFCC80),
-                          child: Container(
-                              child: HappinessSlider(
-                                  "VISIE",
-                                  AppColors.colorYellow,
-                                  AppColors.colorYellowInactive,
-                                  _updateYellowValue)),
-                        ),
-//                      alignment: FractionalOffset.bottomRight,
+                        borderRadius: BorderRadius.circular(24.0),
+                        shadowColor: Color(0xFFA5D6A7),
+                        child: Container(
+                            child: HappinessSlider(
+                                "ACCEPTATIE",
+                                AppColors.colorGreen,
+                                AppColors.colorGreenInactive,
+                                _updateGreenValue)),
                       ),
+//                      alignment: FractionalOffset.bottomRight,
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      child: Material(
+                        color: Color(0xffE5E5E5),
+//                        elevation: 14.0,
+                        borderRadius: BorderRadius.circular(24.0),
+                        shadowColor: Color(0xFFFFCC80),
+                        child: Container(
+                            child: HappinessSlider(
+                                "VISIE",
+                                AppColors.colorYellow,
+                                AppColors.colorYellowInactive,
+                                _updateYellowValue)),
+                      ),
+//                      alignment: FractionalOffset.bottomRight,
+                    ),
 //                    HappinessSlider("ARTIE", Colors.red, Color(0xFFEF9A9A))
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        child: Material(
-                          color: Color(0xffE5E5E5),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      child: Material(
+                        color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
-                          borderRadius: BorderRadius.circular(24.0),
-                          shadowColor: Color(0xFFEF9A9A),
-                          child: Container(
-                              child: HappinessSlider(
-                                  "ACTIE",
-                                  AppColors.colorRed,
-                                  AppColors.colorRedInactive,
-                                  _updateRedValue)),
-                        ),
-//                      alignment: FractionalOffset.bottomRight,
+                        borderRadius: BorderRadius.circular(24.0),
+                        shadowColor: Color(0xFFEF9A9A),
+                        child: Container(
+                            child: HappinessSlider("ACTIE", AppColors.colorRed,
+                                AppColors.colorRedInactive, _updateRedValue)),
                       ),
-                    ],
-                  ),
-                  alignment: Alignment.center,
+//                      alignment: FractionalOffset.bottomRight,
+                    ),
+                  ],
                 ),
+                alignment: Alignment.center,
               ),
-            ],
-          )),
+            ),
+            // text input 'subject'
+            TextField(
+              controller:  textController,
+              decoration: InputDecoration(
+                  border: InputBorder.none, hintText: 'Enter notes'),
+            ),
+          ],
+        ),
+      ),
     );
+  }
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
   }
 }

@@ -12,6 +12,7 @@ final String columnBlue = 'perceptie';
 final String columnGreen = 'acceptatie';
 final String columnYellow = 'visie';
 final String columnRed = 'actie';
+final String columnSituationDescr = 'situation';
 
 // data model class
 class HappinessRecord {
@@ -21,9 +22,10 @@ class HappinessRecord {
   double greenValue;
   double yellowValue;
   double redValue;
+  String situation;
 
   HappinessRecord(this.date, this.blueValue, this.greenValue, this.yellowValue,
-      this.redValue);
+      this.redValue, this.situation);
 
   // convenience constructor to create a Happiness object
   HappinessRecord.fromMap(Map<String, dynamic> map) {
@@ -33,6 +35,7 @@ class HappinessRecord {
     greenValue = map[columnGreen];
     yellowValue = map[columnYellow];
     redValue = map[columnRed];
+    situation = map[columnSituationDescr];
   }
 
   // convenience method to create a Map from this Happiness object
@@ -42,7 +45,8 @@ class HappinessRecord {
       columnBlue: blueValue,
       columnGreen: greenValue,
       columnYellow: yellowValue,
-      columnRed: redValue
+      columnRed: redValue,
+      columnSituationDescr: situation
     };
     if (id != null) {
       map[columnId] = id;
@@ -80,7 +84,12 @@ class DatabaseHelper {
     String path = join(documentsDirectory.path, _databaseName);
     // Open the database. Can also add an onUpdate callback parameter.
     return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreate);
+        version: _databaseVersion, onCreate: _onCreate, onUpgrade: _onUpgrade);
+  }
+
+  _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    await db.execute("DROP TABLE IF EXISTS $tableHappinessRecords");
+    _onCreate(db, newVersion);
   }
 
   // SQL string to create the database
@@ -92,7 +101,8 @@ class DatabaseHelper {
                 $columnBlue DOUBLE NOT NULL,
                 $columnGreen DOUBLE NOT NULL,
                 $columnYellow DOUBLE NOT NULL,
-                $columnRed DOUBLE NOT NULL
+                $columnRed DOUBLE NOT NULL,
+                $columnSituationDescr TEXT
               )
               ''');
   }
@@ -131,7 +141,8 @@ class DatabaseHelper {
           columnBlue,
           columnGreen,
           columnYellow,
-          columnRed
+          columnRed,
+          columnSituationDescr
         ],
         where: '$columnId = ?',
         whereArgs: [id]);
@@ -143,15 +154,11 @@ class DatabaseHelper {
 
   Future<void> deleteRecord(id) async {
     Database db = await database;
-    db.delete(tableHappinessRecords,
-    where: "$columnId = ?",
-    whereArgs: [id]);
+    db.delete(tableHappinessRecords, where: "$columnId = ?", whereArgs: [id]);
   }
 
   Future<void> deleteAll() async {
     Database db = await database;
     db.delete(tableHappinessRecords);
   }
-// TODO: delete(int id)
-// TODO: update(Word word)
 }
