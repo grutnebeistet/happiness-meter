@@ -13,10 +13,8 @@ class MeterPage extends StatefulWidget {
 }
 
 class _MeterPageState extends State<MeterPage> {
-   final textController = TextEditingController();
+  final textController = TextEditingController();
 
-  final double sliderHeight = 420.0;
-  final double sliderWidth = 70.0;
   var average = 0.0;
   var blueValue = 0.0;
   var greenValue = 0.0;
@@ -95,7 +93,7 @@ class _MeterPageState extends State<MeterPage> {
                       blueValue,
                       greenValue,
                       yellowValue,
-                      redValue, 
+                      redValue,
                       textController.text);
                   DatabaseHelper.instance.insert(record);
 
@@ -113,14 +111,15 @@ class _MeterPageState extends State<MeterPage> {
           ),
         ],
       ),
-      body: Container(
-        color: Color(0xffE5E5E5),
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 55,
-              width: double.infinity,
-              padding: EdgeInsets.fromLTRB(20, 45, 20, 0),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Color(0xffE5E5E5),
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 22,
+                width: double.infinity,
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
 //                child: LinearPercentIndicator(
 ////                  width: MediaQuery.of(context).size.width - 50,
 //                  animation: false,
@@ -130,107 +129,121 @@ class _MeterPageState extends State<MeterPage> {
 //                  linearStrokeCap: LinearStrokeCap.roundAll,
 //                  progressColor: Color(0xff7300a8),
 //                ),
-              child: LinearProgressIndicator(
-                backgroundColor: AppColors.colorPurpleInactive,
-                valueColor:
-                    AlwaysStoppedAnimation<Color>(AppColors.colorPurple),
-                value: average / 10,
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 30,
-              padding: EdgeInsets.fromLTRB(20, 5, 18, 0),
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(
-                  "0       1       2       3       4       5       6       7       8       9       10",
-                  textAlign: TextAlign.center,
+                child: LinearProgressIndicator(
+                  backgroundColor: AppColors.colorPurpleInactive,
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(AppColors.colorPurple),
+                  value: average / 10,
                 ),
               ),
-            ),
-            Expanded(
-              child: Align(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      child: Material(
+              Container(
+                width: double.infinity,
+                height: 25,
+                padding: EdgeInsets.fromLTRB(20, 2, 16, 0),
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
+                    "0       1       2       3       4       5       6       7       8       9       10",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Container(
+                child: Align(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        child: Material(
+                            color: Color(0xffE5E5E5),
+//                        elevation: 14.0,
+                            borderRadius: BorderRadius.circular(24.0),
+                            shadowColor: Color(0x802196F3),
+                            child: Container(
+                              child: HappinessSlider(
+                                  "PERCEPTIE",
+                                  AppColors.colorBlue,
+                                  AppColors.colorBlueInactive,
+                                  _updateBlueValue),
+                            )),
+                        margin: EdgeInsets.all(10),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Material(
                           color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
                           borderRadius: BorderRadius.circular(24.0),
-                          shadowColor: Color(0x802196F3),
+                          shadowColor: Color(0xFFA5D6A7),
                           child: Container(
-                            child: HappinessSlider(
-                                "PERCEPTIE",
-                                AppColors.colorBlue,
-                                AppColors.colorBlueInactive,
-                                _updateBlueValue),
-                          )),
-                      margin: EdgeInsets.all(10),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      child: Material(
-                        color: Color(0xffE5E5E5),
-//                        elevation: 14.0,
-                        borderRadius: BorderRadius.circular(24.0),
-                        shadowColor: Color(0xFFA5D6A7),
-                        child: Container(
-                            child: HappinessSlider(
-                                "ACCEPTATIE",
-                                AppColors.colorGreen,
-                                AppColors.colorGreenInactive,
-                                _updateGreenValue)),
-                      ),
+                              child: HappinessSlider(
+                                  "ACCEPTATIE",
+                                  AppColors.colorGreen,
+                                  AppColors.colorGreenInactive,
+                                  _updateGreenValue)),
+                        ),
 //                      alignment: FractionalOffset.bottomRight,
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      child: Material(
-                        color: Color(0xffE5E5E5),
-//                        elevation: 14.0,
-                        borderRadius: BorderRadius.circular(24.0),
-                        shadowColor: Color(0xFFFFCC80),
-                        child: Container(
-                            child: HappinessSlider(
-                                "VISIE",
-                                AppColors.colorYellow,
-                                AppColors.colorYellowInactive,
-                                _updateYellowValue)),
                       ),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Material(
+                          color: Color(0xffE5E5E5),
+//                        elevation: 14.0,
+                          borderRadius: BorderRadius.circular(24.0),
+                          shadowColor: Color(0xFFFFCC80),
+                          child: Container(
+                              child: HappinessSlider(
+                                  "VISIE",
+                                  AppColors.colorYellow,
+                                  AppColors.colorYellowInactive,
+                                  _updateYellowValue)),
+                        ),
 //                      alignment: FractionalOffset.bottomRight,
-                    ),
+                      ),
 //                    HappinessSlider("ARTIE", Colors.red, Color(0xFFEF9A9A))
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      child: Material(
-                        color: Color(0xffE5E5E5),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Material(
+                          color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
-                        borderRadius: BorderRadius.circular(24.0),
-                        shadowColor: Color(0xFFEF9A9A),
-                        child: Container(
-                            child: HappinessSlider("ACTIE", AppColors.colorRed,
-                                AppColors.colorRedInactive, _updateRedValue)),
-                      ),
+                          borderRadius: BorderRadius.circular(24.0),
+                          shadowColor: Color(0xFFEF9A9A),
+                          child: Container(
+                              child: HappinessSlider(
+                                  "ACTIE",
+                                  AppColors.colorRed,
+                                  AppColors.colorRedInactive,
+                                  _updateRedValue)),
+                        ),
 //                      alignment: FractionalOffset.bottomRight,
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
+                  alignment: Alignment.topCenter,
                 ),
-                alignment: Alignment.center,
               ),
-            ),
-            // text input 'subject'
-            TextField(
-              controller:  textController,
-              decoration: InputDecoration(
-                  border: InputBorder.none, hintText: 'Enter notes'),
-            ),
-          ],
+              // text input 'subject'
+              Container(
+                color: Colors.white,
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  controller: textController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter notes',
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
   @override
   void dispose() {
     textController.dispose();

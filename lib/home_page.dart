@@ -102,16 +102,16 @@ class _StateHomePage extends State<HomePage> {
                                       quarterTurns: 3,
                                       child: Column(
                                         children: <Widget>[
-                                          ResultCylinder(AppColors.colorBlue,
+                                          ResultCylinder(AppColors.colorBlue,AppColors.colorBlueInactive,
                                               record.blueValue),
                                           SizedBox(height: 20),
-                                          ResultCylinder(AppColors.colorGreen,
+                                          ResultCylinder(AppColors.colorGreen, AppColors.colorGreenInactive,
                                               record.greenValue),
                                           SizedBox(height: 20),
-                                          ResultCylinder(AppColors.colorYellow,
+                                          ResultCylinder(AppColors.colorYellow, AppColors.colorYellowInactive,
                                               record.yellowValue),
                                           SizedBox(height: 20),
-                                          ResultCylinder(AppColors.colorRed,
+                                          ResultCylinder(AppColors.colorRed,AppColors.colorRedInactive,
                                               record.redValue),
                                           SizedBox(height: 20),
                                         ],
@@ -141,9 +141,10 @@ class _StateHomePage extends State<HomePage> {
 
 class ResultCylinder extends StatelessWidget {
   final color;
+  final bgColor;
   final value;
 
-  ResultCylinder(this.color, this.value);
+  ResultCylinder(this.color,this.bgColor, this.value);
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +152,7 @@ class ResultCylinder extends StatelessWidget {
         width: COL_HEIGHT,
         height: COL_WIDTH,
         child: LinearProgressIndicator(
-          backgroundColor: Colors.white,
+          backgroundColor: bgColor,
           value: value / 10,
           valueColor: AlwaysStoppedAnimation(color),
 //
