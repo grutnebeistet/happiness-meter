@@ -6,16 +6,16 @@ import 'package:happiness_meter/meter_page.dart';
 //   _MeterPageState createState() => _MeterPageState();
 // }
 
-class RecordDetails extends StatefulWidget {
+class RecordDetailsPage extends StatefulWidget {
   final recordId;
-  RecordDetails(this.recordId);
+  RecordDetailsPage(this.recordId);
   @override
-  _RecordDetailsState createState() => _RecordDetailsState(recordId);
+  _RecordDetailsPageState createState() => _RecordDetailsPageState(recordId);
 }
 
-class _RecordDetailsState extends State<RecordDetails> {
+class _RecordDetailsPageState extends State<RecordDetailsPage> {
   final recordId;
-  _RecordDetailsState(this.recordId);
+  _RecordDetailsPageState(this.recordId);
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

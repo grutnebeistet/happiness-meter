@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:happiness_meter/database_helpers.dart';
 import 'package:happiness_meter/meter_page.dart';
 import 'package:happiness_meter/record_details.dart';
+import 'package:happiness_meter/settings_page.dart';
 import 'database_helpers.dart';
 import 'app_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+
+import 'main.dart';
 
 class HomePage extends StatefulWidget {
   _StateHomePage createState() => _StateHomePage();
@@ -20,14 +23,19 @@ class _StateHomePage extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Happiness Meter'),
+          title: Text(DemoLocalizations.of(context).title),
           actions: <Widget>[
 //          IconButton(icon: Icon(FontAwesomeIcons.dyalog), onPressed: () {}),
             Container(
               child: GestureDetector(
                 onTap: () {
                   setState(() {
-                    DatabaseHelper.instance.deleteAll();
+                    // DatabaseHelper.instance.deleteAll();
+                     Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SettingsPage()));
+                          
                   });
                 },
                 child: new Text(
@@ -61,7 +69,7 @@ class _StateHomePage extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => RecordDetails(record.id)));
+                                    builder: (context) => RecordDetailsPage(record.id)));
                           },
                           child: Card(
                             elevation: 8.0,

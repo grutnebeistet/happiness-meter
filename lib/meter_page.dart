@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:happiness_meter/custom_slider_thumb.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'happiness_slider.dart';
 import 'database_helpers.dart';
@@ -15,15 +16,19 @@ class MeterPage extends StatefulWidget {
 }
 
 class _MeterPageState extends State<MeterPage> {
-   HappinessRecord happinessRecord;
-     var average = 0.0;
+  HappinessRecord happinessRecord;
+  final textController = TextEditingController();
+
+  var average = 0.0;
   var blueValue = 0.0;
   var greenValue = 0.0;
   var yellowValue = 0.0;
   var redValue = 0.0;
-  static var situationDescription = '';
+  var situationDescription = 'before init';
 
-  _MeterPageState(this.happinessRecord){
+  var saveLabel;
+
+  _MeterPageState(this.happinessRecord) {
     if (happinessRecord != null) {
       blueValue = happinessRecord.blueValue;
       greenValue = happinessRecord.greenValue;
@@ -31,26 +36,13 @@ class _MeterPageState extends State<MeterPage> {
       redValue = happinessRecord.redValue;
       average = happinessRecord.totalHQ;
       situationDescription = happinessRecord.situation;
+      textController.text = situationDescription;
+      saveLabel = '';
+    } else {
+      saveLabel = 'Save';
+      situationDescription = '';
     }
   }
-
-  final textController = TextEditingController(text: situationDescription);
-
-  var saveLabel = 'Save';
-
-  // bool updatingRecord;
-
-  // _initMeter() {
-  //   if (happinessRecord != null) {
-  //     updatingRecord = true;
-  //     blueValue = happinessRecord.blueValue;
-  //       // _updateBlueValue(happinessRecord.blueValue);
-  //       // _updateGreenValue(happinessRecord.greenValue);
-  //       // _updateYellowValue(happinessRecord.yellowValue);
-  //       // _updateRedValue(happinessRecord.redValue);
-  //   }
-  //   updatingRecord = false;
-  // }
 
   _updateBlueValue(double newValue) {
     setState(() {
@@ -80,7 +72,7 @@ class _MeterPageState extends State<MeterPage> {
     });
   }
 
-  void updateSaveLabel(bool saved) {
+  _updateSaveLabel(bool saved) {
     setState(() {
       if (saved)
         saveLabel = "Saved";
@@ -91,7 +83,7 @@ class _MeterPageState extends State<MeterPage> {
 
   void updateAverage() {
     average = (blueValue + greenValue + yellowValue + redValue) / 4;
-    updateSaveLabel(false);
+    _updateSaveLabel(false);
   }
 
   @override
@@ -109,18 +101,25 @@ class _MeterPageState extends State<MeterPage> {
               Navigator.pop(context);
               //
             }),
-        title: Text("Happiness Meter"),
+        title: Text(happinessRecord == null
+            ? "Happiness Meter"
+            : DateFormat("E dd LLL yyy H:m")
+                .format(
+                    DateTime.fromMillisecondsSinceEpoch(happinessRecord.date))
+                .toString()),
         actions: <Widget>[
 //          IconButton(icon: Icon(FontAwesomeIcons.dyalog), onPressed: () {}),
           Container(
             child: GestureDetector(
               onTap: () {
                 if (saveLabel == 'Save') {
-                  updateSaveLabel(true);
+                  _updateSaveLabel(true);
                   var isNewRecord = happinessRecord == null;
 
                   happinessRecord = HappinessRecord(
-                    isNewRecord ? DateTime.now().millisecondsSinceEpoch : happinessRecord.date,
+                      isNewRecord
+                          ? DateTime.now().millisecondsSinceEpoch
+                          : happinessRecord.date,
                       blueValue,
                       greenValue,
                       yellowValue,
@@ -201,7 +200,8 @@ class _MeterPageState extends State<MeterPage> {
                                   "PERCEPTIE",
                                   AppColors.colorBlue,
                                   AppColors.colorBlueInactive,
-                                  _updateBlueValue, blueValue),
+                                  _updateBlueValue,
+                                  blueValue),
                             )),
                         margin: EdgeInsets.all(10),
                       ),
@@ -217,7 +217,8 @@ class _MeterPageState extends State<MeterPage> {
                                   "ACCEPTATIE",
                                   AppColors.colorGreen,
                                   AppColors.colorGreenInactive,
-                                  _updateGreenValue, greenValue)),
+                                  _updateGreenValue,
+                                  greenValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -233,7 +234,8 @@ class _MeterPageState extends State<MeterPage> {
                                   "VISIE",
                                   AppColors.colorYellow,
                                   AppColors.colorYellowInactive,
-                                  _updateYellowValue, yellowValue)),
+                                  _updateYellowValue,
+                                  yellowValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -250,7 +252,8 @@ class _MeterPageState extends State<MeterPage> {
                                   "ACTIE",
                                   AppColors.colorRed,
                                   AppColors.colorRedInactive,
-                                  _updateRedValue, redValue)),
+                                  _updateRedValue,
+                                  redValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -265,13 +268,17 @@ class _MeterPageState extends State<MeterPage> {
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: TextField(
+                  onChanged: _updateSaveLabel(false),
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   controller: textController,
+                  style: TextStyle(fontSize: 24),
                   decoration: InputDecoration(
+                    labelText: "Situation description",
+                    labelStyle: (TextStyle(fontSize: 30)),
                     border: InputBorder.none,
-                    hintStyle: TextStyle(fontSize: 26),
-                    hintText: 'Enter notes here',
+                    hintStyle: TextStyle(fontSize: 18),
+                    hintText: 'Enter notes',
                   ),
                 ),
               ),
