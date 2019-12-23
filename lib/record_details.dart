@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:happiness_meter/database_helpers.dart';
+import 'package:happiness_meter/meter_page.dart';
 // class MeterPage extends StatefulWidget {
 //   @override
 //   _MeterPageState createState() => _MeterPageState();
@@ -28,9 +29,10 @@ class _RecordDetailsState extends State<RecordDetails> {
                 style: TextStyle(fontSize: 22),
               ),
             );
-          return Center(
-            child: Text(snapshot.data.situation),
-          );
+            return MeterPage(snapshot.data);
+          // return Center(
+          //   child: Text(snapshot.data.situation),
+          // );
         },
       ),
     );

@@ -6,15 +6,16 @@ class HappinessSlider extends StatefulWidget {
   final primaryColor;
   final inactiveColor;
   final sliderTitle;
+  final startValue;
 
   final ValueChanged<double> parentAction;
 
   HappinessSlider(this.sliderTitle, this.primaryColor, this.inactiveColor,
-      this.parentAction);
+      this.parentAction, this.startValue);
 
   @override
   State<StatefulWidget> createState() {
-    return _HappinessSliderState(sliderTitle, primaryColor, inactiveColor);
+    return _HappinessSliderState(sliderTitle, primaryColor, inactiveColor, startValue);
   }
 }
 
@@ -24,10 +25,10 @@ class _HappinessSliderState extends State<HappinessSlider> {
   var primaryColor;
   var inactiveColor;
   var sliderTitle;
-  var value = 0.0;
+  var value;
 
   _HappinessSliderState(
-      this.sliderTitle, this.primaryColor, this.inactiveColor);
+      this.sliderTitle, this.primaryColor, this.inactiveColor, this.value);
 
   void updateValue(double newValue) {
     setState(() {

@@ -8,20 +8,49 @@ import 'database_helpers.dart';
 import 'app_colors.dart';
 
 class MeterPage extends StatefulWidget {
+  final HappinessRecord happinessRecord;
+  MeterPage(this.happinessRecord);
   @override
-  _MeterPageState createState() => _MeterPageState();
+  _MeterPageState createState() => _MeterPageState(this.happinessRecord);
 }
 
 class _MeterPageState extends State<MeterPage> {
-  final textController = TextEditingController();
-
-  var average = 0.0;
+   HappinessRecord happinessRecord;
+     var average = 0.0;
   var blueValue = 0.0;
   var greenValue = 0.0;
   var yellowValue = 0.0;
   var redValue = 0.0;
+  static var situationDescription = '';
+
+  _MeterPageState(this.happinessRecord){
+    if (happinessRecord != null) {
+      blueValue = happinessRecord.blueValue;
+      greenValue = happinessRecord.greenValue;
+      yellowValue = happinessRecord.yellowValue;
+      redValue = happinessRecord.redValue;
+      average = happinessRecord.totalHQ;
+      situationDescription = happinessRecord.situation;
+    }
+  }
+
+  final textController = TextEditingController(text: situationDescription);
 
   var saveLabel = 'Save';
+
+  // bool updatingRecord;
+
+  // _initMeter() {
+  //   if (happinessRecord != null) {
+  //     updatingRecord = true;
+  //     blueValue = happinessRecord.blueValue;
+  //       // _updateBlueValue(happinessRecord.blueValue);
+  //       // _updateGreenValue(happinessRecord.greenValue);
+  //       // _updateYellowValue(happinessRecord.yellowValue);
+  //       // _updateRedValue(happinessRecord.redValue);
+  //   }
+  //   updatingRecord = false;
+  // }
 
   _updateBlueValue(double newValue) {
     setState(() {
@@ -88,16 +117,24 @@ class _MeterPageState extends State<MeterPage> {
               onTap: () {
                 if (saveLabel == 'Save') {
                   updateSaveLabel(true);
-                  HappinessRecord record = HappinessRecord(
-                      DateTime.now().millisecondsSinceEpoch,
+                  var isNewRecord = happinessRecord == null;
+
+                  happinessRecord = HappinessRecord(
+                    isNewRecord ? DateTime.now().millisecondsSinceEpoch : happinessRecord.date,
                       blueValue,
                       greenValue,
                       yellowValue,
                       redValue,
+                      average,
                       textController.text);
-                  DatabaseHelper.instance.insert(record);
 
-                  Navigator.pop(context);
+                  if (!isNewRecord) {
+                    DatabaseHelper.instance.update(happinessRecord);
+                  } else {
+                    DatabaseHelper.instance.insert(happinessRecord);
+
+                    Navigator.pop(context);
+                  }
                 }
 //              Navigator.pushNamed(context, "myRoute");
               },
@@ -164,7 +201,7 @@ class _MeterPageState extends State<MeterPage> {
                                   "PERCEPTIE",
                                   AppColors.colorBlue,
                                   AppColors.colorBlueInactive,
-                                  _updateBlueValue),
+                                  _updateBlueValue, blueValue),
                             )),
                         margin: EdgeInsets.all(10),
                       ),
@@ -180,7 +217,7 @@ class _MeterPageState extends State<MeterPage> {
                                   "ACCEPTATIE",
                                   AppColors.colorGreen,
                                   AppColors.colorGreenInactive,
-                                  _updateGreenValue)),
+                                  _updateGreenValue, greenValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -196,7 +233,7 @@ class _MeterPageState extends State<MeterPage> {
                                   "VISIE",
                                   AppColors.colorYellow,
                                   AppColors.colorYellowInactive,
-                                  _updateYellowValue)),
+                                  _updateYellowValue, yellowValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -213,7 +250,7 @@ class _MeterPageState extends State<MeterPage> {
                                   "ACTIE",
                                   AppColors.colorRed,
                                   AppColors.colorRedInactive,
-                                  _updateRedValue)),
+                                  _updateRedValue, redValue)),
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
@@ -233,7 +270,8 @@ class _MeterPageState extends State<MeterPage> {
                   controller: textController,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Enter notes',
+                    hintStyle: TextStyle(fontSize: 26),
+                    hintText: 'Enter notes here',
                   ),
                 ),
               ),

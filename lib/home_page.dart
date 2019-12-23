@@ -86,6 +86,7 @@ class _StateHomePage extends State<HomePage> {
                                           Text("Happiness Record removed")));
                                 },
                                 child: ListTile(
+                                  contentPadding: EdgeInsets.all(20),
                                   title: Text(
                                     DateFormat("E dd LLL yyy H:m")
                                         .format(
@@ -132,7 +133,7 @@ class _StateHomePage extends State<HomePage> {
           backgroundColor: AppColors.colorPurple,
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => MeterPage()));
+                context, MaterialPageRoute(builder: (context) => MeterPage(null)));
           },
           label: Text('Add record'),
         ));

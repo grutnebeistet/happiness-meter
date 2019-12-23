@@ -13,6 +13,7 @@ final String columnGreen = 'acceptatie';
 final String columnYellow = 'visie';
 final String columnRed = 'actie';
 final String columnSituationDescr = 'situation';
+final String columnTotalHQ = 'total_hq';
 
 // data model class
 class HappinessRecord {
@@ -22,10 +23,11 @@ class HappinessRecord {
   double greenValue;
   double yellowValue;
   double redValue;
+  double totalHQ;
   String situation;
 
   HappinessRecord(this.date, this.blueValue, this.greenValue, this.yellowValue,
-      this.redValue, this.situation);
+      this.redValue, this.totalHQ, this.situation);
 
   // convenience constructor to create a Happiness object
   HappinessRecord.fromMap(Map<String, dynamic> map) {
@@ -35,6 +37,7 @@ class HappinessRecord {
     greenValue = map[columnGreen];
     yellowValue = map[columnYellow];
     redValue = map[columnRed];
+    totalHQ = map[columnTotalHQ];
     situation = map[columnSituationDescr];
   }
 
@@ -46,6 +49,7 @@ class HappinessRecord {
       columnGreen: greenValue,
       columnYellow: yellowValue,
       columnRed: redValue,
+      columnTotalHQ: totalHQ,
       columnSituationDescr: situation
     };
     if (id != null) {
@@ -102,6 +106,7 @@ class DatabaseHelper {
                 $columnGreen DOUBLE NOT NULL,
                 $columnYellow DOUBLE NOT NULL,
                 $columnRed DOUBLE NOT NULL,
+                $columnTotalHQ DOUBLE NOT NULL,
                 $columnSituationDescr TEXT
               )
               ''');
@@ -113,6 +118,12 @@ class DatabaseHelper {
     Database db = await database;
     int id = await db.insert(tableHappinessRecords, record.toMap());
     debugPrint('inserted id: $id');
+    return id;
+  }
+ Future<int> update(HappinessRecord record) async {
+    Database db = await database;
+    int id = await db.update(tableHappinessRecords, record.toMap());
+    debugPrint('updated id: $id');
     return id;
   }
 
@@ -142,6 +153,7 @@ class DatabaseHelper {
           columnGreen,
           columnYellow,
           columnRed,
+          columnTotalHQ,
           columnSituationDescr
         ],
         where: '$columnId = ?',
