@@ -1,5 +1,21 @@
 {
-    "page": {
-        "title": "Dutch title"
+    "main": {
+        "page_title": "Geluksmeter"
+    },
+    "settings":{
+        "page_title": "Instellingen",
+        "change_language" : "Taal"
+    },
+    "meter" : {
+        "page_title": "Geluksmeter",
+        "save": "Bewaar",
+        "saved": "Bewaard",
+        "situation_description": "Situatie",
+        "enter_notes_hint": "Notities invoeren"
+    },
+    "home" : {
+        "empty_db_msg" : "Geen GQ bewaard.",
+        "add_record" : "Bewaar en voeg toe",
+        "removed" : "GQ gewist"
     }
 }

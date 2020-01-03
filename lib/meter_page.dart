@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:happiness_meter/custom_slider_thumb.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/services.dart';
+import 'package:happiness_meter/global_translations.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'happiness_slider.dart';
@@ -39,7 +40,7 @@ class _MeterPageState extends State<MeterPage> {
       textController.text = situationDescription;
       saveLabel = '';
     } else {
-      saveLabel = 'Save';
+      saveLabel = allTranslations.text("meter.save");
       situationDescription = '';
     }
   }
@@ -75,9 +76,9 @@ class _MeterPageState extends State<MeterPage> {
   _updateSaveLabel(bool saved) {
     setState(() {
       if (saved)
-        saveLabel = "Saved";
+        saveLabel = allTranslations.text("meter.saved");
       else
-        saveLabel = "Save";
+        saveLabel = allTranslations.text("meter.save");
     });
   }
 
@@ -102,8 +103,8 @@ class _MeterPageState extends State<MeterPage> {
               //
             }),
         title: Text(happinessRecord == null
-            ? "Happiness Meter"
-            : DateFormat("E dd LLL yyy H:m")
+            ? allTranslations.text("meter.page_title")
+            :  DateFormat.yMMMMd(allTranslations.locale.toString()).add_jm()
                 .format(
                     DateTime.fromMillisecondsSinceEpoch(happinessRecord.date))
                 .toString()),
@@ -112,7 +113,8 @@ class _MeterPageState extends State<MeterPage> {
           Container(
             child: GestureDetector(
               onTap: () {
-                if (saveLabel == 'Save') {
+                var localeSaveLabel = allTranslations.text("meter.save");
+                if (saveLabel == localeSaveLabel) {
                   _updateSaveLabel(true);
                   var isNewRecord = happinessRecord == null;
 
@@ -274,11 +276,11 @@ class _MeterPageState extends State<MeterPage> {
                   controller: textController,
                   style: TextStyle(fontSize: 24),
                   decoration: InputDecoration(
-                    labelText: "Situation description",
+                    labelText: allTranslations.text("meter.situation_description"),
                     labelStyle: (TextStyle(fontSize: 30)),
                     border: InputBorder.none,
                     hintStyle: TextStyle(fontSize: 18),
-                    hintText: 'Enter notes',
+                    hintText: allTranslations.text("meter.enter_notes_hint"),
                   ),
                 ),
               ),

@@ -25,7 +25,7 @@ class _StateHomePage extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           // title: Text(DemoLocalizations.of(context).title),
-          title: Text(allTranslations.text("page.title")),
+          title: Text(allTranslations.text("main.page_title")),
           actions: <Widget>[
 //          IconButton(icon: Icon(FontAwesomeIcons.dyalog), onPressed: () {}),
             Container(
@@ -40,13 +40,15 @@ class _StateHomePage extends State<HomePage> {
                           
                   });
                 },
-                child: new Text(
-                  "Delete all",
-                  style: TextStyle(fontSize: 16),
-                ),
+                child: 
+                IconButton(icon: Icon(Icons.settings),),
+                // new Text(
+                //   "Delete all2",
+                //   style: TextStyle(fontSize: 16),
+                // ),
               ),
               alignment: Alignment.center,
-              padding: const EdgeInsets.all(16.0),
+              // padding: const EdgeInsets.all(16.0),
             ),
           ],
         ),
@@ -58,7 +60,7 @@ class _StateHomePage extends State<HomePage> {
                 if (!snapshot.hasData)
                   return Center(
                       child: Text(
-                    "No Happiness Recorded!",
+                    allTranslations.text("home.empty_db_msg"),
                     style: TextStyle(fontSize: 22),
                   ));
 //                  return Center(child: CircularProgressIndicator());
@@ -93,12 +95,12 @@ class _StateHomePage extends State<HomePage> {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                       duration: Duration(seconds: 1),
                                       content:
-                                          Text("Happiness Record removed")));
+                                          Text(allTranslations.text("home.removed"))));
                                 },
                                 child: ListTile(
                                   contentPadding: EdgeInsets.all(20),
                                   title: Text(
-                                    DateFormat("E dd LLL yyy H:m")
+                                    DateFormat.yMMMMEEEEd(allTranslations.locale.toString()).add_jm()
                                         .format(
                                             DateTime.fromMillisecondsSinceEpoch(
                                                 record.date))
@@ -145,7 +147,7 @@ class _StateHomePage extends State<HomePage> {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => MeterPage(null)));
           },
-          label: Text('Add record'),
+          label: Text(allTranslations.text("home.add_record")),
         ));
   }
 }

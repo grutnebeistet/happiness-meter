@@ -1,5 +1,21 @@
 {
-    "page": {
-        "title": "English title"
+    "main": {
+        "page_title": "Happiness Meter"
+    },
+    "settings":{
+        "page_title": "Settings",
+        "change_language" : "Language"
+    },
+    "meter" : {
+        "page_title": "Happiness Meter",
+        "save": "Save",
+        "saved": "Saved",
+        "situation_description": "Situation description",
+        "enter_notes_hint": "Enter notes"
+    },
+    "home" :{
+        "empty_db_msg" : "No HQ recorded.",
+        "add_record" : "Add Record",
+        "removed" : "HQ record removed"
     }
 }

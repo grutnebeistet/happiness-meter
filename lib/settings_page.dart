@@ -20,7 +20,7 @@ class SettingsPage extends StatefulWidget {
     //
     // Retrieves the title of the page, from the translations
     //
-    final String pageTitle = allTranslations.text("page.title");
+    final String pageTitle = allTranslations.text("settings.page_title");
     
     //
     // Retrieves the caption of the button
@@ -40,7 +40,7 @@ class SettingsPage extends StatefulWidget {
         //   defaultVal: 'Timeline',
         //   values: ['Posts', 'Timeline', 'Private Messages'],
         // ),
-        PreferenceTitle('Language'),
+        PreferenceTitle(allTranslations.text("settings.change_language")),
         RadioPreference(
           'English',
           'en',
@@ -49,7 +49,7 @@ class SettingsPage extends StatefulWidget {
           isDefault: true,
         ),
         RadioPreference(
-          'Dutch',
+          'Nederlands',
           'nl',
           'app_language',
           onSelect: (){ translationsBloc.setNewLanguage("nl");},
