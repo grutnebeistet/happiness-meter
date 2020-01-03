@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:happiness_meter/bloc_provider.dart';
+import 'package:happiness_meter/global_translations.dart';
 import 'package:preferences/preference_page.dart';
 import 'package:preferences/preferences.dart';
 
@@ -10,10 +12,25 @@ class SettingsPage extends StatefulWidget {
   class  _SettingsPageState extends State<SettingsPage> {
 @override
   Widget build(BuildContext context) {
-  
+  //
+    // Retrieves the BLoC that handles the changes to the current language
+    //
+    final TranslationsBloc translationsBloc = BlocProvider.of<TranslationsBloc>(context);
+    
+    //
+    // Retrieves the title of the page, from the translations
+    //
+    final String pageTitle = allTranslations.text("page.title");
+    
+    //
+    // Retrieves the caption of the button
+    //
+    final String buttonCaption = allTranslations.text("page.changeLanguage");
+
   return Scaffold(
       appBar: AppBar(
-        title: Text('Preferences'),
+        // title: Text('Preferences'),
+         title: Text(pageTitle),
       ),
       body: PreferencePage([
         // PreferenceTitle('General'),
@@ -28,16 +45,17 @@ class SettingsPage extends StatefulWidget {
           'English',
           'en',
           'app_language',
+             onSelect: (){ translationsBloc.setNewLanguage("en");},
           isDefault: true,
         ),
         RadioPreference(
           'Dutch',
           'nl',
           'app_language',
+          onSelect: (){ translationsBloc.setNewLanguage("nl");},
         ),
-      ]),
+      ],
+      ),
     );
   }
-    
-  
 }

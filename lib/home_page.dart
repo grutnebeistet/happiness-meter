@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happiness_meter/database_helpers.dart';
+import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/meter_page.dart';
 import 'package:happiness_meter/record_details.dart';
 import 'package:happiness_meter/settings_page.dart';
@@ -23,7 +24,8 @@ class _StateHomePage extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(DemoLocalizations.of(context).title),
+          // title: Text(DemoLocalizations.of(context).title),
+          title: Text(allTranslations.text("page.title")),
           actions: <Widget>[
 //          IconButton(icon: Icon(FontAwesomeIcons.dyalog), onPressed: () {}),
             Container(

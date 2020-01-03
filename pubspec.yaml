@@ -38,7 +38,9 @@ dependencies:
 
   path_provider: ^1.4.0
 
-  intl: ^0.15.8
+  intl: ^0.16.0
+  # intl_translation: ^0.17.7
+  rxdart: ^0.21.0
 
 dev_dependencies:
   flutter_test:
@@ -50,11 +52,16 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/locale/locale_nl.json
+    - assets/locale/locale_en.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
