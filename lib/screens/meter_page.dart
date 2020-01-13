@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:happiness_meter/custom_slider_thumb.dart';
+import 'package:happiness_meter/components/happiness_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/services.dart';
+import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/global_translations.dart';
+import 'package:happiness_meter/theme/app_colors.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'happiness_slider.dart';
-import 'database_helpers.dart';
-import 'app_colors.dart';
+import 'dart:developer' as developer;
 
 class MeterPage extends StatefulWidget {
   final HappinessRecord happinessRecord;
@@ -25,7 +25,7 @@ class _MeterPageState extends State<MeterPage> {
   var greenValue = 0.0;
   var yellowValue = 0.0;
   var redValue = 0.0;
-  var situationDescription = 'before init';
+  var situationDescription = '';
 
   var saveLabel;
 
@@ -104,7 +104,8 @@ class _MeterPageState extends State<MeterPage> {
             }),
         title: Text(happinessRecord == null
             ? allTranslations.text("meter.page_title")
-            :  DateFormat.yMMMMd(allTranslations.locale.toString()).add_jm()
+            : DateFormat.yMMMMd(allTranslations.locale.toString())
+                .add_jm()
                 .format(
                     DateTime.fromMillisecondsSinceEpoch(happinessRecord.date))
                 .toString()),
@@ -151,22 +152,13 @@ class _MeterPageState extends State<MeterPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Color(0xffE5E5E5),
+          // color: Color(0xffE5E5E5),
           child: Column(
             children: <Widget>[
               Container(
                 height: 22,
                 width: double.infinity,
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-//                child: LinearPercentIndicator(
-////                  width: MediaQuery.of(context).size.width - 50,
-//                  animation: false,
-//                  lineHeight: 20.0,
-////                  animationDuration: 500,
-//                  percent: average / 10,
-//                  linearStrokeCap: LinearStrokeCap.roundAll,
-//                  progressColor: Color(0xff7300a8),
-//                ),
                 child: LinearProgressIndicator(
                   backgroundColor: AppColors.colorPurpleInactive,
                   valueColor:
@@ -193,27 +185,27 @@ class _MeterPageState extends State<MeterPage> {
                     children: <Widget>[
                       Container(
                         child: Material(
-                            color: Color(0xffE5E5E5),
+                            // color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
-                            borderRadius: BorderRadius.circular(24.0),
-                            shadowColor: Color(0x802196F3),
+                            // borderRadius: BorderRadius.circular(24.0),
+                            // shadowColor: Color(0x802196F3),
                             child: Container(
-                              child: HappinessSlider(
-                                  "PERCEPTIE",
-                                  AppColors.colorBlue,
-                                  AppColors.colorBlueInactive,
-                                  _updateBlueValue,
-                                  blueValue),
-                            )),
+                          child: HappinessSlider(
+                              "PERCEPTIE",
+                              AppColors.colorBlue,
+                              AppColors.colorBlueInactive,
+                              _updateBlueValue,
+                              blueValue),
+                        )),
                         margin: EdgeInsets.all(10),
                       ),
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Material(
-                          color: Color(0xffE5E5E5),
+                          // color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
-                          borderRadius: BorderRadius.circular(24.0),
-                          shadowColor: Color(0xFFA5D6A7),
+                          // borderRadius: BorderRadius.circular(24.0),
+                          // shadowColor: Color(0xFFA5D6A7),
                           child: Container(
                               child: HappinessSlider(
                                   "ACCEPTATIE",
@@ -227,10 +219,10 @@ class _MeterPageState extends State<MeterPage> {
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Material(
-                          color: Color(0xffE5E5E5),
+                          // color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
-                          borderRadius: BorderRadius.circular(24.0),
-                          shadowColor: Color(0xFFFFCC80),
+                          // borderRadius: BorderRadius.circular(24.0),
+                          // shadowColor: Color(0xFFFFCC80),
                           child: Container(
                               child: HappinessSlider(
                                   "VISIE",
@@ -245,10 +237,10 @@ class _MeterPageState extends State<MeterPage> {
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Material(
-                          color: Color(0xffE5E5E5),
+                          // color: Color(0xffE5E5E5),
 //                        elevation: 14.0,
-                          borderRadius: BorderRadius.circular(24.0),
-                          shadowColor: Color(0xFFEF9A9A),
+                          // borderRadius: BorderRadius.circular(24.0),
+                          // shadowColor: Color(0xFFEF9A9A),
                           child: Container(
                               child: HappinessSlider(
                                   "ACTIE",
@@ -266,19 +258,32 @@ class _MeterPageState extends State<MeterPage> {
               ),
               // text input 'subject'
               Container(
-                color: Colors.white,
+                // color: Colors.grey[200],
                 alignment: Alignment.topCenter,
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: TextField(
-                  onChanged: _updateSaveLabel(false),
+                  onTap: () {
+                    setState(() {
+                      _updateSaveLabel(false);
+                    });
+                  },
+                  textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   controller: textController,
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(fontSize: 24,),
                   decoration: InputDecoration(
-                    labelText: allTranslations.text("meter.situation_description"),
+                    labelText:
+                        allTranslations.text("meter.situation_description"),
                     labelStyle: (TextStyle(fontSize: 30)),
-                    border: InputBorder.none,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueGrey, width: 3.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey, width: 3.0),
+                    ),
+                    // border: InputBorder.none,
                     hintStyle: TextStyle(fontSize: 18),
                     hintText: allTranslations.text("meter.enter_notes_hint"),
                   ),

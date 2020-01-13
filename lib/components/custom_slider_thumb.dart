@@ -36,11 +36,11 @@ class CustomSliderThumb extends SliderComponentShape {
       ..style = PaintingStyle.fill;
 
     final fillPaintLine = Paint()
-      ..color = Color(0xffE5E5E5)
+      ..color = Colors.white
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()
-      ..color = Color(0xffE5E5E5)
+      ..color = Colors.white
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 

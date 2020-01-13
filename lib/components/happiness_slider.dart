@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:happiness_meter/custom_slider_thumb.dart';
-import 'package:happiness_meter/custom_slider_track.dart';
+import 'package:happiness_meter/components/custom_slider_thumb.dart';
 
 class HappinessSlider extends StatefulWidget {
   final primaryColor;
@@ -41,7 +40,7 @@ class _HappinessSliderState extends State<HappinessSlider> {
   Widget build(BuildContext context) {
     return Container(
       child: Material(
-        color: Color(0xffE5E5E5),
+        // color: Color(0xffE5E5E5),
         borderRadius: BorderRadius.circular(10.0),
         shadowColor: inactiveColor,
         child: Container(

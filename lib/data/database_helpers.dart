@@ -139,7 +139,7 @@ class DatabaseHelper {
       return HappinessRecord.fromMap(item);
     }).toList();
 
-    print(result);
+    // print(result);
     return list;
   }
 

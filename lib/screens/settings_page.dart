@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:happiness_meter/bloc_provider.dart';
+import 'package:happiness_meter/bloc/bloc_provider.dart';
+import 'package:happiness_meter/bloc/bloc_provider.dart';
 import 'package:happiness_meter/global_translations.dart';
 import 'package:preferences/preference_page.dart';
 import 'package:preferences/preferences.dart';

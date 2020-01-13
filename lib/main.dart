@@ -1,13 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:happiness_meter/bloc_provider.dart';
+import 'package:happiness_meter/bloc/bloc_provider.dart';
 import 'package:happiness_meter/global_translations.dart';
-import 'package:happiness_meter/home_page.dart';
+import 'package:happiness_meter/screens/home_page.dart';
 import 'package:intl/intl.dart';
 import 'package:preferences/preference_service.dart';
-import 'meter_page.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,9 +43,7 @@ class _MyAppState  extends State<MyApp> {
         initialData: allTranslations.locale,
         builder: (BuildContext context, AsyncSnapshot<Locale> snapshot) {
 
-    return MaterialApp(
-      // onGenerateTitle: (BuildContext context) => DemoLocalizations.of(context).title,
-    
+    return MaterialApp(  
 locale: snapshot.data ?? allTranslations.locale,
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,

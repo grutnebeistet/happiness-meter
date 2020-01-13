@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:happiness_meter/bloc_provider.dart';
+import 'package:happiness_meter/bloc/bloc_provider.dart';
 import 'package:happiness_meter/preferences.dart';
 
 const List<String> _kSupportedLanguages = ["en","nl"];

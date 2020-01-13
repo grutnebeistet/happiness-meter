@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:happiness_meter/database_helpers.dart';
-import 'package:happiness_meter/meter_page.dart';
+import 'package:happiness_meter/data/database_helpers.dart';
+
+import 'meter_page.dart';
 // class MeterPage extends StatefulWidget {
 //   @override
 //   _MeterPageState createState() => _MeterPageState();
