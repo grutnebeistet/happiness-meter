@@ -29,6 +29,8 @@ class _MeterPageState extends State<MeterPage> {
 
   var saveLabel;
 
+  var shouldDisableFab = false;
+
   _MeterPageState(this.happinessRecord) {
     if (happinessRecord != null) {
       blueValue = happinessRecord.blueValue;
@@ -85,6 +87,7 @@ class _MeterPageState extends State<MeterPage> {
   void updateAverage() {
     average = (blueValue + greenValue + yellowValue + redValue) / 4;
     _updateSaveLabel(false);
+    shouldDisableFab = false;
   }
 
   @override
@@ -95,61 +98,6 @@ class _MeterPageState extends State<MeterPage> {
     ]);
 
     return new Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-              //
-            }),
-        title: Text(happinessRecord == null
-            ? allTranslations.text("meter.page_title")
-            : DateFormat.yMMMMd(allTranslations.locale.toString())
-                .add_jm()
-                .format(
-                    DateTime.fromMillisecondsSinceEpoch(happinessRecord.date))
-                .toString()),
-        actions: <Widget>[
-//          IconButton(icon: Icon(FontAwesomeIcons.dyalog), onPressed: () {}),
-          Container(
-            child: GestureDetector(
-              onTap: () {
-                var localeSaveLabel = allTranslations.text("meter.save");
-                if (saveLabel == localeSaveLabel) {
-                  _updateSaveLabel(true);
-                  var isNewRecord = happinessRecord == null;
-
-                  happinessRecord = HappinessRecord(
-                      isNewRecord
-                          ? DateTime.now().millisecondsSinceEpoch
-                          : happinessRecord.date,
-                      blueValue,
-                      greenValue,
-                      yellowValue,
-                      redValue,
-                      average,
-                      textController.text);
-
-                  if (!isNewRecord) {
-                    DatabaseHelper.instance.update(happinessRecord);
-                  } else {
-                    DatabaseHelper.instance.insert(happinessRecord);
-
-                    Navigator.pop(context);
-                  }
-                }
-//              Navigator.pushNamed(context, "myRoute");
-              },
-              child: new Text(
-                saveLabel,
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(16.0),
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         child: Container(
           // color: Color(0xffE5E5E5),
@@ -262,16 +210,19 @@ class _MeterPageState extends State<MeterPage> {
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: TextField(
-                  onTap: () {
+                  onSubmitted: (value) {},
+                  onChanged: (value){
                     setState(() {
-                      _updateSaveLabel(false);
+                      shouldDisableFab = false;
                     });
                   },
                   textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   controller: textController,
-                  style: TextStyle(fontSize: 24,),
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
                   decoration: InputDecoration(
                     labelText:
                         allTranslations.text("meter.situation_description"),
@@ -281,7 +232,8 @@ class _MeterPageState extends State<MeterPage> {
                           BorderSide(color: Colors.blueGrey, width: 3.0),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey, width: 3.0),
+                      borderSide:
+                          BorderSide(color: Colors.blueGrey, width: 3.0),
                     ),
                     // border: InputBorder.none,
                     hintStyle: TextStyle(fontSize: 18),
@@ -292,6 +244,34 @@ class _MeterPageState extends State<MeterPage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: shouldDisableFab ? Colors.grey : Colors.blue,
+        onPressed: shouldDisableFab ? null : () {
+
+          setState(() {
+            var isNewRecord = happinessRecord == null;
+            happinessRecord = HappinessRecord(
+                isNewRecord
+                    ? DateTime.now().millisecondsSinceEpoch
+                    : happinessRecord.date,
+                blueValue,
+                greenValue,
+                yellowValue,
+                redValue,
+                average,
+                textController.text);
+
+            if (!isNewRecord) {
+              DatabaseHelper.instance.update(happinessRecord);
+            } else {
+              DatabaseHelper.instance.insert(happinessRecord);
+            }
+            shouldDisableFab = true;
+          });
+        },
+        icon: Icon(Icons.save),
+        label: Text(''),
       ),
     );
   }
