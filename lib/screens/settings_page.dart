@@ -29,18 +29,7 @@ class SettingsPage extends StatefulWidget {
     final String buttonCaption = allTranslations.text("page.changeLanguage");
 
   return Scaffold(
-      appBar: AppBar(
-        // title: Text('Preferences'),
-         title: Text(pageTitle),
-      ),
       body: PreferencePage([
-        // PreferenceTitle('General'),
-        // DropdownPreference(
-        //   'Start Page',
-        //   'start_page',
-        //   defaultVal: 'Timeline',
-        //   values: ['Posts', 'Timeline', 'Private Messages'],
-        // ),
         PreferenceTitle(allTranslations.text("settings.change_language")),
         RadioPreference(
           'English',
@@ -57,6 +46,7 @@ class SettingsPage extends StatefulWidget {
         ),
       ],
       ),
+      
     );
   }
 }

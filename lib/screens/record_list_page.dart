@@ -3,16 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:happiness_meter/data/database_helpers.dart';
 
 import 'package:happiness_meter/global_translations.dart';
-import 'package:flutter/foundation.dart';
 import 'package:happiness_meter/main.dart';
 import 'package:happiness_meter/model/record.dart';
-import 'package:happiness_meter/screens/record_details.dart';
-import 'package:happiness_meter/screens/settings_page.dart';
 import 'package:happiness_meter/theme/app_colors.dart';
 import 'package:intl/intl.dart';
-
-import 'meter_page.dart';
-import 'dart:developer' as developer;
 
 class RecordListPage extends StatefulWidget {
   const RecordListPage({this.onEditPressed});
@@ -30,27 +24,7 @@ class _StateRecordsPage extends State<RecordListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      // title: Text(allTranslations.text("main.page_title")),
-      // actions: <Widget>[
-      //   Container(
-      //     child: IconButton(
-      //       icon: Icon(Icons.settings),
-      //       onPressed: () {
-      //         setState(() {
-      //           DatabaseHelper.instance.deleteAll();
-      //           // Navigator.push(
-      //           //     context,
-      //           //     MaterialPageRoute(
-      //           //         builder: (context) => SettingsPage()));
-      //         });
-      //       },
-      //     ),
-      //     alignment: Alignment.center,
-      //     // padding: const EdgeInsets.all(16.0),
-      //   ),
-      // ],
-      // ),
+  
       body: Container(
           color: Colors.blueGrey,
           child: FutureBuilder<List<HappinessRecord>>(

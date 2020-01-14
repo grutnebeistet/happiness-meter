@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:happiness_meter/components/happiness_slider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:flutter/services.dart';
 import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/theme/app_colors.dart';
-import 'package:intl/intl.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'dart:developer' as developer;
+
 
 class MeterPage extends StatefulWidget {
   final HappinessRecord happinessRecord;

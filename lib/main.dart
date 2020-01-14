@@ -5,6 +5,7 @@ import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/screens/meter_page.dart';
 import 'package:happiness_meter/screens/record_list_page.dart';
+import 'package:happiness_meter/screens/settings_page.dart';
 import 'package:intl/intl.dart';
 import 'package:preferences/preference_service.dart';
 
@@ -136,7 +137,9 @@ class _MyAppState extends State<MyApp> {
                             }
                           ),
                         ),
-                        Text("Profile, stats etc")
+                         Center(
+                          child: SettingsPage(),
+                        ),
                       ],
                     )),
               ),
