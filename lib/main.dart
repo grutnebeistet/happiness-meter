@@ -6,6 +6,7 @@ import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/screens/meter_page.dart';
 import 'package:happiness_meter/screens/record_list_page.dart';
 import 'package:happiness_meter/screens/settings_page.dart';
+import 'package:happiness_meter/theme/app_colors.dart';
 import 'package:intl/intl.dart';
 import 'package:preferences/preference_service.dart';
 
@@ -93,12 +94,12 @@ class _MyAppState extends State<MyApp> {
                               child: TabBar(
                                   indicator: UnderlineTabIndicator(
                                       borderSide: BorderSide(
-                                          color: Colors.blueAccent, width: 4.0),
+                                          color: Colors.transparent, width: 4.0),
                                       insets: EdgeInsets.fromLTRB(
                                           40.0, 20.0, 40.0, 0)),
                                   indicatorWeight: 15,
                                   indicatorSize: TabBarIndicatorSize.label,
-                                  labelColor: Color(0xff2d386b),
+                                  labelColor: Colors.blueGrey,//AppColors.colorThemeBlue,
                                   labelStyle: TextStyle(
                                       fontSize: 12,
                                       letterSpacing: 1.3,

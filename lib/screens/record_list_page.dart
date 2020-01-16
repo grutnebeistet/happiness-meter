@@ -19,14 +19,13 @@ const double COL_HEIGHT = 110.0;
 const double COL_WIDTH = 35.0;
 
 class _StateRecordsPage extends State<RecordListPage> {
-   _StateRecordsPage(this.onEditPressed);
+  _StateRecordsPage(this.onEditPressed);
   final RecordDetailCallback onEditPressed;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  
       body: Container(
-          color: Colors.blueGrey,
+          color: Colors.white70, //AppColors.colorThemeBlue,
           child: FutureBuilder<List<HappinessRecord>>(
             future: DatabaseHelper.instance.getAllHappinessRecords(),
             builder: (context, snapshot) {
@@ -58,7 +57,7 @@ class _StateRecordsPage extends State<RecordListPage> {
                                     color: Color(0xfff0f5fb),
                                     border: Border.all(
                                       width: 8,
-                                      color: Color(0xffd3e1ed),
+                                      color: AppColors.colorLightThemeBlue,
                                     ),
                                     borderRadius: BorderRadius.circular(3),
                                   ),
@@ -116,7 +115,8 @@ class _StateRecordsPage extends State<RecordListPage> {
                                                   color: Color(0xfff0f5fb),
                                                   border: Border.all(
                                                     width: 8,
-                                                    color: Color(0xffd3e1ed),
+                                                    color: AppColors
+                                                        .colorLightThemeBlue,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(3)),
@@ -136,7 +136,8 @@ class _StateRecordsPage extends State<RecordListPage> {
                                               color: Color(0xfff0f5fb),
                                               border: Border.all(
                                                 width: 8,
-                                                color: Color(0xffd3e1ed),
+                                                color: AppColors
+                                                    .colorLightThemeBlue,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(3),
@@ -147,6 +148,14 @@ class _StateRecordsPage extends State<RecordListPage> {
                                                   DatabaseHelper.instance
                                                       .deleteRecord(record.id);
                                                 });
+                                                // Show a snackbar. This snackbar could also contain "Undo" actions.
+                                                Scaffold.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                        duration: Duration(
+                                                            seconds: 1),
+                                                        content: Text(
+                                                            allTranslations.text(
+                                                                "home.removed"))));
                                               },
                                               // child: Image(
                                               // image: NetworkImage(
@@ -248,8 +257,6 @@ class GraphPainter extends CustomPainter {
     canvas.drawPath(trackPath, trackPaint);
     canvas.drawPath(trackBarPath, trackBarPaint);
   }
-
-
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {

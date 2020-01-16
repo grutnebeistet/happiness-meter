@@ -8,6 +8,7 @@
     },
     "meter" : {
         "page_title": "Geluksmeter",
+        "recorded": "GQ bewaard",
         "save": "Bewaar",
         "saved": "Bewaard",
         "situation_description": "Situatie",

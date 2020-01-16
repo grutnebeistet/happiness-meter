@@ -20,7 +20,7 @@ class HappinessSlider extends StatefulWidget {
 
 class _HappinessSliderState extends State<HappinessSlider> {
   final double sliderHeight = 400.0;
-  final double sliderWidth = 70.0;
+  final double sliderWidth = 25.0;
   var primaryColor;
   var inactiveColor;
   var sliderTitle;
@@ -44,7 +44,7 @@ class _HappinessSliderState extends State<HappinessSlider> {
         borderRadius: BorderRadius.circular(10.0),
         shadowColor: inactiveColor,
         child: Container(
-          width: sliderWidth,
+          // width: sliderWidth,
           height: sliderHeight,
           child: Row(
             children: <Widget>[
@@ -101,7 +101,7 @@ class _HappinessSliderState extends State<HappinessSlider> {
           ),
         ),
       ),
-      margin: EdgeInsets.all(4),
+      // margin: EdgeInsets.all(4),
     );
   }
 }

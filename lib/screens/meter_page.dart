@@ -6,7 +6,6 @@ import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/theme/app_colors.dart';
 
-
 class MeterPage extends StatefulWidget {
   final HappinessRecord happinessRecord;
   MeterPage(this.happinessRecord);
@@ -106,9 +105,9 @@ class _MeterPageState extends State<MeterPage> {
                 width: double.infinity,
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: LinearProgressIndicator(
-                  backgroundColor: AppColors.colorPurpleInactive,
+                  backgroundColor: AppColors.colorOrangeInactive,
                   valueColor:
-                      AlwaysStoppedAnimation<Color>(AppColors.colorPurple),
+                      AlwaysStoppedAnimation<Color>(AppColors.colorOrange),
                   value: average / 10,
                 ),
               ),
@@ -131,10 +130,6 @@ class _MeterPageState extends State<MeterPage> {
                     children: <Widget>[
                       Container(
                         child: Material(
-                            // color: Color(0xffE5E5E5),
-//                        elevation: 14.0,
-                            // borderRadius: BorderRadius.circular(24.0),
-                            // shadowColor: Color(0x802196F3),
                             child: Container(
                           child: HappinessSlider(
                               "PERCEPTIE",
@@ -148,10 +143,6 @@ class _MeterPageState extends State<MeterPage> {
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Material(
-                          // color: Color(0xffE5E5E5),
-//                        elevation: 14.0,
-                          // borderRadius: BorderRadius.circular(24.0),
-                          // shadowColor: Color(0xFFA5D6A7),
                           child: Container(
                               child: HappinessSlider(
                                   "ACCEPTATIE",
@@ -165,10 +156,6 @@ class _MeterPageState extends State<MeterPage> {
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Material(
-                          // color: Color(0xffE5E5E5),
-//                        elevation: 14.0,
-                          // borderRadius: BorderRadius.circular(24.0),
-                          // shadowColor: Color(0xFFFFCC80),
                           child: Container(
                               child: HappinessSlider(
                                   "VISIE",
@@ -179,14 +166,9 @@ class _MeterPageState extends State<MeterPage> {
                         ),
 //                      alignment: FractionalOffset.bottomRight,
                       ),
-//                    HappinessSlider("ARTIE", Colors.red, Color(0xFFEF9A9A))
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Material(
-                          // color: Color(0xffE5E5E5),
-//                        elevation: 14.0,
-                          // borderRadius: BorderRadius.circular(24.0),
-                          // shadowColor: Color(0xFFEF9A9A),
                           child: Container(
                               child: HappinessSlider(
                                   "ACTIE",
@@ -209,7 +191,7 @@ class _MeterPageState extends State<MeterPage> {
                 padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: TextField(
                   onSubmitted: (value) {},
-                  onChanged: (value){
+                  onChanged: (value) {
                     setState(() {
                       shouldDisableFab = false;
                     });
@@ -244,30 +226,34 @@ class _MeterPageState extends State<MeterPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: shouldDisableFab ? Colors.grey : Colors.blue,
-        onPressed: shouldDisableFab ? null : () {
+        backgroundColor: shouldDisableFab ? Colors.grey : Colors.blueGrey,
+        onPressed: shouldDisableFab
+            ? null
+            : () {
+                setState(() {
+                  var isNewRecord = happinessRecord == null;
+                  happinessRecord = HappinessRecord(
+                      isNewRecord
+                          ? DateTime.now().millisecondsSinceEpoch
+                          : happinessRecord.date,
+                      blueValue,
+                      greenValue,
+                      yellowValue,
+                      redValue,
+                      average,
+                      textController.text);
 
-          setState(() {
-            var isNewRecord = happinessRecord == null;
-            happinessRecord = HappinessRecord(
-                isNewRecord
-                    ? DateTime.now().millisecondsSinceEpoch
-                    : happinessRecord.date,
-                blueValue,
-                greenValue,
-                yellowValue,
-                redValue,
-                average,
-                textController.text);
-
-            if (!isNewRecord) {
-              DatabaseHelper.instance.update(happinessRecord);
-            } else {
-              DatabaseHelper.instance.insert(happinessRecord);
-            }
-            shouldDisableFab = true;
-          });
-        },
+                  if (!isNewRecord) {
+                    DatabaseHelper.instance.update(happinessRecord);
+                  } else {
+                    DatabaseHelper.instance.insert(happinessRecord);
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: Text(allTranslations.text("meter.recorded"))));
+                  }
+                  shouldDisableFab = true;
+                });
+              },
         icon: Icon(Icons.save),
         label: Text(''),
       ),
