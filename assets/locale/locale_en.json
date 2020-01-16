@@ -9,6 +9,7 @@
     "meter" : {
         "page_title": "Happiness Meter",
         "recorded": "HQ recorded",
+        "updated": "HQ updated",
         "save": "Save",
         "saved": "Saved",
         "situation_description": "Situation description",

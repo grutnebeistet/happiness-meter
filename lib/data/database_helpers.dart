@@ -120,17 +120,21 @@ class DatabaseHelper {
     debugPrint('inserted id: $id');
     return id;
   }
- Future<int> update(HappinessRecord record) async {
+
+ Future<int> update(HappinessRecord record, int id) async {
     Database db = await database;
-    int id = await db.update(tableHappinessRecords, record.toMap());
-    debugPrint('updated id: $id');
-    return id;
+    // int count = await db.update(tableHappinessRecords, record.toMap());
+    debugPrint('attempting to update record: ${record.blueValue}');
+     debugPrint('attempting to update id: ${id}');
+    int count = await db.update(tableHappinessRecords, record.toMap(), where: "$columnId = ?", whereArgs: [id], conflictAlgorithm: ConflictAlgorithm.replace);
+    debugPrint('updates on id $id: $count');
+    return count;
   }
 
   Future<List<HappinessRecord>> getAllHappinessRecords() async {
     Database db = await database;
     String sql =
-        "SELECT * FROM $tableHappinessRecords ORDER BY $columnDateTime DESC";
+        "SELECT * FROM $tableHappinessRecords ORDER BY $columnId DESC";
 
     var result = await db.rawQuery(sql);
     if (result.length == 0) return null;
@@ -166,6 +170,7 @@ class DatabaseHelper {
 
   Future<void> deleteRecord(id) async {
     Database db = await database;
+    debugPrint('deleteRecord id: $id');
     db.delete(tableHappinessRecords, where: "$columnId = ?", whereArgs: [id]);
   }
 

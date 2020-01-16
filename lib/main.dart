@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
               ),
               home: DefaultTabController(
                 // length: choices.length,
-                length: 3,
+                length: 2,
                 child: Scaffold(
                     appBar: AppBar(
                         backgroundColor: Colors.white,
@@ -114,11 +114,11 @@ class _MyAppState extends State<MyApp> {
                                       text: "RECORDS",
                                       icon: Icon(Icons.book, size: 40),
                                     ),
-                                    Tab(
-                                      text: "PROFILE",
-                                      icon: Icon(Icons.supervised_user_circle,
-                                          size: 40),
-                                    ),
+                                    // Tab(
+                                    //   text: "PROFILE",
+                                    //   icon: Icon(Icons.supervised_user_circle,
+                                    //       size: 40),
+                                    // ),
                                   ]),
                             ),
                           ),
@@ -138,9 +138,9 @@ class _MyAppState extends State<MyApp> {
                             }
                           ),
                         ),
-                         Center(
-                          child: SettingsPage(),
-                        ),
+                        //  Center(
+                        //   child: SettingsPage(),
+                        // ),
                       ],
                     )),
               ),

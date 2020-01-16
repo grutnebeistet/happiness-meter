@@ -17,6 +17,7 @@ class _MeterPageState extends State<MeterPage> {
   HappinessRecord happinessRecord;
   final textController = TextEditingController();
 
+  int recordId;
   var average = 0.0;
   var blueValue = 0.0;
   var greenValue = 0.0;
@@ -230,34 +231,50 @@ class _MeterPageState extends State<MeterPage> {
         onPressed: shouldDisableFab
             ? null
             : () {
-                setState(() {
-                  var isNewRecord = happinessRecord == null;
-                  happinessRecord = HappinessRecord(
-                      isNewRecord
-                          ? DateTime.now().millisecondsSinceEpoch
-                          : happinessRecord.date,
-                      blueValue,
-                      greenValue,
-                      yellowValue,
-                      redValue,
-                      average,
-                      textController.text);
+                // setState(() {
+                var isNewRecord = happinessRecord == null;
+                happinessRecord = HappinessRecord(
+                    isNewRecord
+                        ? DateTime.now().millisecondsSinceEpoch
+                        : happinessRecord.date,
+                    blueValue,
+                    greenValue,
+                    yellowValue,
+                    redValue,
+                    average,
+                    textController.text);
 
-                  if (!isNewRecord) {
-                    DatabaseHelper.instance.update(happinessRecord);
-                  } else {
-                    DatabaseHelper.instance.insert(happinessRecord);
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                        duration: Duration(seconds: 1),
-                        content: Text(allTranslations.text("meter.recorded"))));
-                  }
-                  shouldDisableFab = true;
-                });
+                if (!isNewRecord) {
+                  // DatabaseHelper.instance.update(happinessRecord, recordId);
+                  _updateRecord();
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                      duration: Duration(seconds: 1),
+                      content: Text(allTranslations.text("meter.updated"))));
+                } else {
+                  _insertRecord();
+                  // recordId =
+                  //     await DatabaseHelper.instance.insert(happinessRecord);
+
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                      duration: Duration(seconds: 1),
+                      content: Text(allTranslations.text("meter.recorded"))));
+                }
+                shouldDisableFab = true;
+                // });
               },
         icon: Icon(Icons.save),
         label: Text(''),
       ),
     );
+  }
+ void _insertRecord() async {
+    recordId = await DatabaseHelper.instance.insert(happinessRecord);
+  }
+  void _updateRecord() async {
+          DatabaseHelper.instance.update(happinessRecord, recordId);
+    // setState(() {
+
+    // });
   }
 
   @override
