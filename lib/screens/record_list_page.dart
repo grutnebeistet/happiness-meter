@@ -4,6 +4,7 @@ import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/main.dart';
 import 'package:happiness_meter/theme/app_colors.dart';
+import 'package:happiness_meter/theme/happ_meter_icons.dart';
 import 'package:happiness_meter/utils/record_drawing.dart';
 import 'package:intl/intl.dart';
 
@@ -36,7 +37,8 @@ class _StateRecordsPage extends State<RecordListPage> {
                     .map(
                       (record) => GestureDetector(
                         onTap: () {
-                          onEditPressed(record);
+                          // TODO Details page
+                          // onEditPressed(null);
                         },
                         child: Container(
                           margin: new EdgeInsets.symmetric(
@@ -101,6 +103,7 @@ class _StateRecordsPage extends State<RecordListPage> {
                               Expanded(
                                 flex: 2,
                                 child: Container(
+                                  // color: Colors.pink,
                                   // width: 80,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -122,17 +125,22 @@ class _StateRecordsPage extends State<RecordListPage> {
                                                   borderRadius:
                                                       BorderRadius.circular(3)),
                                               padding: EdgeInsets.all(15),
-                                              // child: Image(
-                                              // image: NetworkImage(
-                                              //     'https://banner2.cleanpng.com/20180920/gof/kisspng-computer-icons-editing-portable-network-graphics-i-edit-profile-svg-png-icon-free-download-194863-5ba34579aa7087.1111242415374268096981.jpg'),
-                                              // ),
+                                              child: GestureDetector(
+                                                onTap: (){
+                                                  onEditPressed(record);
+                                                },
+                                                child: Icon(
+                                                  HappMeter.pencil,
+                                                  size: 22,
+                                                ),
+                                              ),
                                             )),
                                       ),
                                       Container(
+                                        height: 100,
                                         child: Card(
                                           elevation: 8.0,
                                           child: Container(
-                                            height: 100,
                                             decoration: BoxDecoration(
                                               color: Color(0xfff0f5fb),
                                               border: Border.all(
@@ -143,12 +151,16 @@ class _StateRecordsPage extends State<RecordListPage> {
                                               borderRadius:
                                                   BorderRadius.circular(3),
                                             ),
+                                            padding: EdgeInsets.all(15),
                                             child: GestureDetector(
                                               onTap: () {
-                                                setState(() {
-                                                  DatabaseHelper.instance
-                                                      .deleteRecord(record.id);
-                                                },);
+                                                setState(
+                                                  () {
+                                                    DatabaseHelper.instance
+                                                        .deleteRecord(
+                                                            record.id);
+                                                  },
+                                                );
                                                 // Show a snackbar. This snackbar could also contain "Undo" actions.
                                                 Scaffold.of(context)
                                                     .showSnackBar(SnackBar(
@@ -158,10 +170,10 @@ class _StateRecordsPage extends State<RecordListPage> {
                                                             allTranslations.text(
                                                                 "home.removed"))));
                                               },
-                                              // child: Image(
-                                              // image: NetworkImage(
-                                              //     'https://toppng.com/uploads/preview/delete-button-clipart-volume-icon-hapus-11563950527luvjbpuej2.png'),
-                                              // ),
+                                              child: Icon(
+                                                HappMeter.trash,
+                                                size: 22,
+                                              ),
                                             ),
 
                                             // padding: EdgeInsets.all(15),

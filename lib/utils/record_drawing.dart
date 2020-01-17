@@ -32,7 +32,7 @@ class GraphPainter extends CustomPainter {
   final HappinessRecord dbRecord;
 
   GraphPainter(this.dbRecord){
-     debugPrint('GraphPainter id ${dbRecord.id} - B: ${dbRecord.blueValue} - G: ${dbRecord.greenValue} - Y: ${dbRecord.yellowValue}');
+    //  debugPrint('GraphPainter id ${dbRecord.id} - B: ${dbRecord.blueValue} - G: ${dbRecord.greenValue} - Y: ${dbRecord.yellowValue}');
   }
 
   // foreground
@@ -84,8 +84,6 @@ class GraphPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return true;
-  }
+  bool shouldRepaint(GraphPainter oldDelegate) => oldDelegate.dbRecord != dbRecord;
+  
 }

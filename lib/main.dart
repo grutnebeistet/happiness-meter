@@ -5,10 +5,7 @@ import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/screens/meter_page.dart';
 import 'package:happiness_meter/screens/record_list_page.dart';
-import 'package:happiness_meter/screens/settings_page.dart';
-import 'package:happiness_meter/theme/app_colors.dart';
-import 'package:intl/intl.dart';
-import 'package:preferences/preference_service.dart';
+import 'package:happiness_meter/theme/happ_meter_icons.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,24 +20,26 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   TranslationsBloc translationsBloc;
   HappinessRecord record;
+  bool editMode = false;
   TabController _controller;
-  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
 
     translationsBloc = TranslationsBloc();
-    //  _controller = TabController(length: 3);
+    _controller = TabController(length: 2, vsync: this);
+    _controller.addListener(_onTabChange);
     // _controller.addListener(_handleTabSelection);
   }
 
   @override
   void dispose() {
     translationsBloc?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -75,10 +74,13 @@ class _MyAppState extends State<MyApp> {
                       appBar: AppBar(
                           backgroundColor: Colors.white,
                           bottom: PreferredSize(
-                            preferredSize: Size.fromHeight(35),
+                            preferredSize: Size.fromHeight(32),
                             child: Container(
                               child: SafeArea(
-                                child: TabBar(onTap: (f){FocusScope.of(context).unfocus();},
+                                child: TabBar(
+                                    onTap: (f) {
+                                      FocusScope.of(context).unfocus();
+                                    },
                                     indicator: UnderlineTabIndicator(
                                         borderSide: BorderSide(
                                             color: Colors.transparent,
@@ -94,16 +96,16 @@ class _MyAppState extends State<MyApp> {
                                         letterSpacing: 1.3,
                                         fontWeight: FontWeight.w500),
                                     unselectedLabelColor: Colors.black26,
+                                    controller: _controller,
                                     tabs: [
                                       Tab(
                                         text: "METER",
-                                        icon: Icon(
-                                            Icons.settings_input_composite,
-                                            size: 40),
+                                        icon: Icon(HappMeter.params, size: 40),
                                       ),
                                       Tab(
                                         text: "RECORDS",
-                                        icon: Icon(Icons.book, size: 40),
+                                        icon: Icon(HappMeter.list_1,
+                                            size: 40), //insert_chart
                                       ),
                                       // Tab(
                                       //   text: "PROFILE",
@@ -115,15 +117,21 @@ class _MyAppState extends State<MyApp> {
                             ),
                           )),
                       body: TabBarView(
+                        controller: _controller,
                         children: <Widget>[
                           Center(
-                            child: MeterPage(null), // ToDO optional
+                            child: MeterPage(record), // ToDO optional
                           ),
                           Center(
                             child: RecordListPage(
                                 onEditPressed: (HappinessRecord newRecord) {
                               setState(() {
+                                debugPrint(
+                                    "main: onEditPressed record: ${newRecord.id}");
                                 record = newRecord;
+                                editMode = true;
+                                _controller.index = 0;
+
                                 //  TODO complete a Tab change listener
                               });
                             }),
@@ -140,18 +148,17 @@ class _MyAppState extends State<MyApp> {
           }),
     );
   }
+
+  void _onTabChange() {
+    debugPrint("main: editMode $editMode");
+    if (!editMode) {
+      setState(() {
+        record = null;
+      });
+    }
+    editMode = false;
+  }
 }
 
-class Choice {
-  const Choice({this.title, this.icon});
-
-  final String title;
-  final IconData icon;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Meter', icon: Icons.perm_data_setting),
-  const Choice(title: 'Records', icon: Icons.book),
-];
-
-typedef RecordDetailCallback = void Function(HappinessRecord record);
+typedef RecordDetailCallback = void Function(
+    HappinessRecord record); // TODO rename -> RecordEdit...

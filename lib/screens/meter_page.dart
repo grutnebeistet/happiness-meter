@@ -31,6 +31,7 @@ class _MeterPageState extends State<MeterPage> {
 
   _MeterPageState(this.happinessRecord) {
     if (happinessRecord != null) {
+      recordId = happinessRecord.id;
       blueValue = happinessRecord.blueValue;
       greenValue = happinessRecord.greenValue;
       yellowValue = happinessRecord.yellowValue;
@@ -86,8 +87,8 @@ class _MeterPageState extends State<MeterPage> {
     average = (blueValue + greenValue + yellowValue + redValue) / 4;
     _updateSaveLabel(false);
     shouldDisableFab = false;
-      // FocusScope.of(context).requestFocus(new FocusNode());
-      FocusScope.of(context).unfocus();
+    // FocusScope.of(context).requestFocus(new FocusNode());
+    FocusScope.of(context).unfocus();
   }
 
   @override
@@ -233,37 +234,32 @@ class _MeterPageState extends State<MeterPage> {
         onPressed: shouldDisableFab
             ? null
             : () {
-                // FocusScope.of(context).requestFocus(new FocusNode());
                 FocusScope.of(context).unfocus();
                 setState(() {
-                var isNewRecord = happinessRecord == null;
-                happinessRecord = HappinessRecord(
-                    isNewRecord
-                        ? DateTime.now().millisecondsSinceEpoch
-                        : happinessRecord.date,
-                    blueValue,
-                    greenValue,
-                    yellowValue,
-                    redValue,
-                    average,
-                    textController.text);
+                  var isNewRecord = happinessRecord == null;
+                  happinessRecord = HappinessRecord(
+                      isNewRecord
+                          ? DateTime.now().millisecondsSinceEpoch
+                          : happinessRecord.date,
+                      blueValue,
+                      greenValue,
+                      yellowValue,
+                      redValue,
+                      average,
+                      textController.text);
 
-                if (!isNewRecord) {
-                  // DatabaseHelper.instance.update(happinessRecord, recordId);
-                  _updateRecord();
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                      duration: Duration(seconds: 1),
-                      content: Text(allTranslations.text("meter.updated"))));
-                } else {
-                  _insertRecord();
-                  // recordId =
-                  //     await DatabaseHelper.instance.insert(happinessRecord);
+                  if (!isNewRecord) {
+                    _updateRecord();
 
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                      duration: Duration(seconds: 1),
-                      content: Text(allTranslations.text("meter.recorded"))));
-                }
-                shouldDisableFab = true;
+                    showSnackBar(
+                        context, allTranslations.text("meter.updated"));
+                  } else {
+                    _insertRecord();
+
+                    showSnackBar(
+                        context, allTranslations.text("meter.recorded"));
+                  }
+                  shouldDisableFab = true;
                 });
               },
         icon: Icon(Icons.save),
@@ -271,12 +267,15 @@ class _MeterPageState extends State<MeterPage> {
       ),
     );
   }
- void _insertRecord() async {
+
+  void _insertRecord() async {
     recordId = await DatabaseHelper.instance.insert(happinessRecord);
   }
-  void _updateRecord() async {
-          DatabaseHelper.instance.update(happinessRecord, recordId);
 
+  void _updateRecord() async {
+    setState(() {
+      DatabaseHelper.instance.update(happinessRecord, recordId);
+    });
   }
 
   @override
@@ -284,4 +283,9 @@ class _MeterPageState extends State<MeterPage> {
     textController.dispose();
     super.dispose();
   }
+}
+
+void showSnackBar(dynamic context, String msg) {
+  Scaffold.of(context).showSnackBar(
+      SnackBar(duration: Duration(seconds: 1), content: Text(msg)));
 }
