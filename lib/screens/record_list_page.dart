@@ -5,6 +5,7 @@ import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/main.dart';
 import 'package:happiness_meter/theme/app_colors.dart';
 import 'package:happiness_meter/theme/happ_meter_icons.dart';
+import 'package:happiness_meter/utils/date_utils.dart';
 import 'package:happiness_meter/utils/record_drawing.dart';
 import 'package:intl/intl.dart';
 
@@ -47,11 +48,9 @@ class _StateRecordsPage extends State<RecordListPage> {
                           child: Row(
                             children: <Widget>[
                               Expanded(
-                                flex: 7,
+                                flex: 5,
                                 child: Card(
                                   elevation: 8.0,
-                                  // margin: new EdgeInsets.symmetric(
-                                  //     horizontal: 10.0, vertical: 10.0),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: Color(0xfff0f5fb),
@@ -67,14 +66,7 @@ class _StateRecordsPage extends State<RecordListPage> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          DateFormat.yMMMMEEEEd(allTranslations
-                                                  .locale
-                                                  .toString())
-                                              // .add_jm()
-                                              .format(DateTime
-                                                  .fromMillisecondsSinceEpoch(
-                                                      record.date))
-                                              .toString(),
+                                          DateUtils.getPrettyDate(record.date),
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500,
@@ -82,14 +74,11 @@ class _StateRecordsPage extends State<RecordListPage> {
                                               color: Color(0xff5b6990)),
                                         ),
                                         SizedBox(
-                                          height: 20,
+                                          height: 44,
                                         ),
                                         Container(
-                                          height: 120,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10),
+                                          height: 90,
                                           width: 200,
-                                          // child: Text("id ${record.id} - B: ${record.blueValue} - G: ${record.greenValue} - Y: ${record.yellowValue}"),
                                           child: CustomPaint(
                                             foregroundPainter:
                                                 GraphPainter(record),
@@ -111,7 +100,7 @@ class _StateRecordsPage extends State<RecordListPage> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
                                       Container(
-                                        height: 100,
+                                        // height: 100,
                                         child: Card(
                                             elevation: 8.0,
                                             child: Container(
@@ -126,18 +115,19 @@ class _StateRecordsPage extends State<RecordListPage> {
                                                       BorderRadius.circular(3)),
                                               padding: EdgeInsets.all(15),
                                               child: GestureDetector(
-                                                onTap: (){
+                                                onTap: () {
                                                   onEditPressed(record);
                                                 },
                                                 child: Icon(
                                                   HappMeter.pencil,
-                                                  size: 22,
+                                                  size: 32,
                                                 ),
                                               ),
                                             )),
                                       ),
+                                      SizedBox(height: 10,),
                                       Container(
-                                        height: 100,
+                                        // height: 100,
                                         child: Card(
                                           elevation: 8.0,
                                           child: Container(
@@ -172,7 +162,7 @@ class _StateRecordsPage extends State<RecordListPage> {
                                               },
                                               child: Icon(
                                                 HappMeter.trash,
-                                                size: 22,
+                                                size: 32,
                                               ),
                                             ),
 

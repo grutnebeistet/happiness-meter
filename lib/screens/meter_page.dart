@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/theme/app_colors.dart';
+import 'package:happiness_meter/utils/date_utils.dart';
 
 class MeterPage extends StatefulWidget {
   final HappinessRecord happinessRecord;
@@ -104,6 +105,14 @@ class _MeterPageState extends State<MeterPage> {
           // color: Color(0xffE5E5E5),
           child: Column(
             children: <Widget>[
+              if (happinessRecord != null)
+                Container(
+                  padding: EdgeInsets.only(top:15) ,
+                                  child: Text(
+                    "Record added ${DateUtils.getPrettyDate(happinessRecord.date)}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
               Container(
                 height: 22,
                 width: double.infinity,
