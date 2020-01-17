@@ -26,7 +26,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   TranslationsBloc translationsBloc;
   HappinessRecord record;
-   TabController _controller;
+  TabController _controller;
   int _currentIndex = 0;
 
   @override
@@ -66,83 +66,74 @@ class _MyAppState extends State<MyApp> {
               home: DefaultTabController(
                 // length: choices.length,
                 length: 2,
-                child: Scaffold(
-                    appBar: AppBar(
-                        backgroundColor: Colors.white,
-                        // actions: <Widget>[
-                        //   Container(
-                        //     child: IconButton(
-                        //       icon: Icon(Icons.settings),
-                        //       onPressed: () {
-                        //         setState(() {
-                        //           DatabaseHelper.instance.deleteAll();
-                        //           // Navigator.push(
-                        //           //     context,
-                        //           //     MaterialPageRoute(
-                        //           //         builder: (context) => SettingsPage()));
-                        //         });
-                        //       },
-                        //     ),
-                        //     alignment: Alignment.center,
-                        //     // padding: const EdgeInsets.all(16.0),
-                        //   ),
-                        // ],
-                        bottom: PreferredSize(
-                          preferredSize: Size.fromHeight(35),
-                          child: Container(
-                            child: SafeArea(
-                              child: TabBar(
-                                  indicator: UnderlineTabIndicator(
-                                      borderSide: BorderSide(
-                                          color: Colors.transparent, width: 4.0),
-                                      insets: EdgeInsets.fromLTRB(
-                                          40.0, 20.0, 40.0, 0)),
-                                  indicatorWeight: 15,
-                                  indicatorSize: TabBarIndicatorSize.label,
-                                  labelColor: Colors.blueGrey,//AppColors.colorThemeBlue,
-                                  labelStyle: TextStyle(
-                                      fontSize: 12,
-                                      letterSpacing: 1.3,
-                                      fontWeight: FontWeight.w500),
-                                  unselectedLabelColor: Colors.black26,
-                                  tabs: [
-                                    Tab(
-                                      text: "METER",
-                                      icon: Icon(Icons.settings_input_composite, size: 40),
-                                    ),
-                                    Tab(
-                                      text: "RECORDS",
-                                      icon: Icon(Icons.book, size: 40),
-                                    ),
-                                    // Tab(
-                                    //   text: "PROFILE",
-                                    //   icon: Icon(Icons.supervised_user_circle,
-                                    //       size: 40),
-                                    // ),
-                                  ]),
+                child: new GestureDetector(
+                  onTap: () {
+                    // FocusScope.of(context).requestFocus(new FocusNode());
+                    FocusScope.of(context).unfocus();
+                  },
+                  child: Scaffold(
+                      appBar: AppBar(
+                          backgroundColor: Colors.white,
+                          bottom: PreferredSize(
+                            preferredSize: Size.fromHeight(35),
+                            child: Container(
+                              child: SafeArea(
+                                child: TabBar(onTap: (f){FocusScope.of(context).unfocus();},
+                                    indicator: UnderlineTabIndicator(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 4.0),
+                                        insets: EdgeInsets.fromLTRB(
+                                            40.0, 20.0, 40.0, 0)),
+                                    indicatorWeight: 15,
+                                    indicatorSize: TabBarIndicatorSize.label,
+                                    labelColor: Colors
+                                        .blueGrey, //AppColors.colorThemeBlue,
+                                    labelStyle: TextStyle(
+                                        fontSize: 12,
+                                        letterSpacing: 1.3,
+                                        fontWeight: FontWeight.w500),
+                                    unselectedLabelColor: Colors.black26,
+                                    tabs: [
+                                      Tab(
+                                        text: "METER",
+                                        icon: Icon(
+                                            Icons.settings_input_composite,
+                                            size: 40),
+                                      ),
+                                      Tab(
+                                        text: "RECORDS",
+                                        icon: Icon(Icons.book, size: 40),
+                                      ),
+                                      // Tab(
+                                      //   text: "PROFILE",
+                                      //   icon: Icon(Icons.supervised_user_circle,
+                                      //       size: 40),
+                                      // ),
+                                    ]),
+                              ),
                             ),
+                          )),
+                      body: TabBarView(
+                        children: <Widget>[
+                          Center(
+                            child: MeterPage(null), // ToDO optional
                           ),
-                        )),
-                    body: TabBarView(
-                      children: <Widget>[
-                        Center(
-                          child: MeterPage(null),
-                        ),
-                        Center(
-                          child: RecordListPage(
-                            onEditPressed:(HappinessRecord newRecord){
+                          Center(
+                            child: RecordListPage(
+                                onEditPressed: (HappinessRecord newRecord) {
                               setState(() {
                                 record = newRecord;
                                 //  TODO complete a Tab change listener
                               });
-                            }
+                            }),
                           ),
-                        ),
-                        //  Center(
-                        //   child: SettingsPage(),
-                        // ),
-                      ],
-                    )),
+                          //  Center(
+                          //   child: SettingsPage(),
+                          // ),
+                        ],
+                      )),
+                ),
               ),
             );
             // home: HomePage());
@@ -162,6 +153,5 @@ const List<Choice> choices = const <Choice>[
   const Choice(title: 'Meter', icon: Icons.perm_data_setting),
   const Choice(title: 'Records', icon: Icons.book),
 ];
-
 
 typedef RecordDetailCallback = void Function(HappinessRecord record);

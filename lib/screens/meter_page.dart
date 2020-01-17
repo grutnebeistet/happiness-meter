@@ -86,6 +86,8 @@ class _MeterPageState extends State<MeterPage> {
     average = (blueValue + greenValue + yellowValue + redValue) / 4;
     _updateSaveLabel(false);
     shouldDisableFab = false;
+      // FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).unfocus();
   }
 
   @override
@@ -231,7 +233,9 @@ class _MeterPageState extends State<MeterPage> {
         onPressed: shouldDisableFab
             ? null
             : () {
-                // setState(() {
+                // FocusScope.of(context).requestFocus(new FocusNode());
+                FocusScope.of(context).unfocus();
+                setState(() {
                 var isNewRecord = happinessRecord == null;
                 happinessRecord = HappinessRecord(
                     isNewRecord
@@ -260,7 +264,7 @@ class _MeterPageState extends State<MeterPage> {
                       content: Text(allTranslations.text("meter.recorded"))));
                 }
                 shouldDisableFab = true;
-                // });
+                });
               },
         icon: Icon(Icons.save),
         label: Text(''),
@@ -272,9 +276,7 @@ class _MeterPageState extends State<MeterPage> {
   }
   void _updateRecord() async {
           DatabaseHelper.instance.update(happinessRecord, recordId);
-    // setState(() {
 
-    // });
   }
 
   @override

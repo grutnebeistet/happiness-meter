@@ -68,7 +68,7 @@ class GraphPainter extends CustomPainter {
 
     for (int i = 0; i < val.length; i++) {
       Record record = val[i];
-      
+
       trackPath.moveTo(origin, 0);
       trackPath.lineTo(origin, size.height);
 
@@ -86,6 +86,6 @@ class GraphPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     // TODO: implement shouldRepaint
-    return false;
+    return true;
   }
 }

@@ -148,7 +148,7 @@ class _StateRecordsPage extends State<RecordListPage> {
                                                 setState(() {
                                                   DatabaseHelper.instance
                                                       .deleteRecord(record.id);
-                                                });
+                                                },);
                                                 // Show a snackbar. This snackbar could also contain "Undo" actions.
                                                 Scaffold.of(context)
                                                     .showSnackBar(SnackBar(
