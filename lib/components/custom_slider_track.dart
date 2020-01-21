@@ -11,19 +11,19 @@ class CustomSliderTrack extends SliderTrackShape {
     bool isEnabled,
     bool isDiscrete,
   }) {
-    final double thumbWidth =
-        sliderTheme.thumbShape.getPreferredSize(true, isDiscrete).width;
+    // final double thumbWidth =
+    //     sliderTheme.thumbShape.getPreferredSize(true, isDiscrete).width;
     final double trackHeight = sliderTheme.trackHeight;
-    assert(thumbWidth >= 0);
+    // assert(thumbWidth >= 0);
     assert(trackHeight >= 0);
-    assert(parentBox.size.width >= thumbWidth);
+    // assert(parentBox.size.width >= thumbWidth);
     assert(parentBox.size.height >= trackHeight);
 
-    final double trackLeft = offset.dx + thumbWidth / 2;
+    // final double trackLeft = offset.dx + thumbWidth / 2;
     final double trackTop =
         offset.dy + (parentBox.size.height - trackHeight) / 2;
-    final double trackWidth = parentBox.size.width - thumbWidth;
-    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
+    // final double trackWidth = parentBox.size.width - thumbWidth;
+    // return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 
   @override

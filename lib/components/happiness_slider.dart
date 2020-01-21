@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:happiness_meter/components/custom_slider_thumb.dart';
+import 'package:happiness_meter/components/custom_slider_track.dart';
+import 'package:happiness_meter/utils/record_drawing.dart';
 
 class HappinessSlider extends StatefulWidget {
   final primaryColor;
@@ -10,17 +12,17 @@ class HappinessSlider extends StatefulWidget {
   final ValueChanged<double> parentAction;
 
   HappinessSlider(this.sliderTitle, this.primaryColor, this.inactiveColor,
-      this.parentAction, this.startValue);
+      this.startValue, this.parentAction);
 
   @override
   State<StatefulWidget> createState() {
-    return _HappinessSliderState(sliderTitle, primaryColor, inactiveColor, startValue);
+    return _HappinessSliderState(
+        sliderTitle, primaryColor, inactiveColor, startValue);
   }
 }
 
 class _HappinessSliderState extends State<HappinessSlider> {
-  final double sliderHeight = 400.0;
-  final double sliderWidth = 25.0;
+  final sliderHeight = 400.0;
   var primaryColor;
   var inactiveColor;
   var sliderTitle;
@@ -40,11 +42,10 @@ class _HappinessSliderState extends State<HappinessSlider> {
   Widget build(BuildContext context) {
     return Container(
       child: Material(
-        // color: Color(0xffE5E5E5),
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(10.0),
         shadowColor: inactiveColor,
         child: Container(
-          // width: sliderWidth,
           height: sliderHeight,
           child: Row(
             children: <Widget>[
@@ -64,44 +65,64 @@ class _HappinessSliderState extends State<HappinessSlider> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Container(
-                        alignment: Alignment.center,
-                        width: 32,
-                        child: Text(
-                          value.toInt().toString(),
-                          style: TextStyle(color: primaryColor, fontSize: 24.0),
-                        )),
+                      alignment: Alignment.center,
+                      width: 32,
+                      child: Text(
+                        value.toInt().toString(),
+                        style: TextStyle(color: primaryColor, fontSize: 24.0),
+                      ),
+                    ),
                   ),
-                  Expanded(
-                    child: SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: primaryColor,
-                          inactiveTrackColor: inactiveColor,
-                          trackHeight: 10.0,
-                          inactiveTickMarkColor: inactiveColor,
-                          activeTickMarkColor: inactiveColor,
-                          // trackShape: CustomSliderTrack(),
-                          thumbShape: CustomSliderThumb(),
-                        ),
-                        child: RotatedBox(
-                          quarterTurns: 3,
-                          child: Slider(
-                            min: 0.0,
-                            max: 10.0,
-                            divisions: 10,
-                            value: value,
-                            onChanged: (newValue) {
-                              updateValue(newValue);
-                            },
-                          ),
-                        )),
-                  ),
+                  _thumbSlider(),
+                  // widget.parentAction == null ? _graphSlider() : _thumbSlider()
                 ],
               ),
             ],
           ),
         ),
       ),
-      // margin: EdgeInsets.all(4),
+    );
+  }
+
+  // Container _graphSlider() {
+  //   return Container(
+  //     height: height,
+  //     child: CustomPaint(
+  //       foregroundPainter:
+  //           GraphPainterDetails(value, primaryColor, inactiveColor),
+  //     ),
+  //   );
+  // }
+
+  Expanded _thumbSlider() {
+    return Expanded(
+      child: Container(
+        color: Colors.transparent,
+        child: SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            overlayColor: Colors.transparent,
+            activeTrackColor: primaryColor,
+            inactiveTrackColor: inactiveColor,
+            trackHeight: 10.0,
+            inactiveTickMarkColor: inactiveColor,
+            activeTickMarkColor: inactiveColor,
+            // trackShape: CustomSliderTrack(),
+            thumbShape: CustomSliderThumb(),
+          ),
+          child: RotatedBox(
+            quarterTurns: 3,
+            child: Slider(
+              min: 0.0,
+              max: 10.0,
+              divisions: 10,
+              value: value,
+              onChanged: (newValue) {
+                updateValue(newValue);
+              },
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -5,11 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/theme/app_colors.dart';
-import 'package:happiness_meter/utils/date_utils.dart';
 
 class MeterPage extends StatefulWidget {
   final HappinessRecord happinessRecord;
-  MeterPage(this.happinessRecord);
+  MeterPage([this.happinessRecord]);
   @override
   _MeterPageState createState() => _MeterPageState(this.happinessRecord);
 }
@@ -30,7 +29,10 @@ class _MeterPageState extends State<MeterPage> {
 
   var shouldDisableFab = false;
 
-  _MeterPageState(this.happinessRecord) {
+  // _MeterPageState(){}
+
+  _MeterPageState([this.happinessRecord]) {
+    // TODO two constructors
     if (happinessRecord != null) {
       recordId = happinessRecord.id;
       blueValue = happinessRecord.blueValue;
@@ -102,17 +104,16 @@ class _MeterPageState extends State<MeterPage> {
     return new Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          // color: Color(0xffE5E5E5),
           child: Column(
             children: <Widget>[
-              if (happinessRecord != null)
-                Container(
-                  padding: EdgeInsets.only(top:15) ,
-                                  child: Text(
-                    "Record added ${DateUtils.getPrettyDate(happinessRecord.date)}",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
+              // if (happinessRecord != null) // TODO hidden for demo
+              //   Container(
+              //     padding: EdgeInsets.only(top: 15),
+              //     child: Text(
+              //       "Record added ${DateUtils.getPrettyDate(happinessRecord.date)}",
+              //       style: TextStyle(fontSize: 16),
+              //     ),
+              //   ),
               Container(
                 height: 22,
                 width: double.infinity,
@@ -142,56 +143,42 @@ class _MeterPageState extends State<MeterPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        child: Material(
-                            child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: HappinessSlider(
+                          "PERCEPTIE",
+                          AppColors.colorBlue,
+                          AppColors.colorBlueInactive,
+                          blueValue,
+                          _updateBlueValue,
+                        ),
+                      ),
+                      Container(
+                          margin: EdgeInsets.all(10),
                           child: HappinessSlider(
-                              "PERCEPTIE",
-                              AppColors.colorBlue,
-                              AppColors.colorBlueInactive,
-                              _updateBlueValue,
-                              blueValue),
-                        )),
-                        margin: EdgeInsets.all(10),
-                      ),
+                            "ACCEPTATIE",
+                            AppColors.colorGreen,
+                            AppColors.colorGreenInactive,
+                            greenValue,
+                            _updateGreenValue,
+                          )),
                       Container(
-                        margin: EdgeInsets.all(10),
-                        child: Material(
-                          child: Container(
-                              child: HappinessSlider(
-                                  "ACCEPTATIE",
-                                  AppColors.colorGreen,
-                                  AppColors.colorGreenInactive,
-                                  _updateGreenValue,
-                                  greenValue)),
-                        ),
-//                      alignment: FractionalOffset.bottomRight,
-                      ),
+                          margin: EdgeInsets.all(10),
+                          child: HappinessSlider(
+                            "VISIE",
+                            AppColors.colorYellow,
+                            AppColors.colorYellowInactive,
+                            yellowValue,
+                            _updateYellowValue,
+                          )),
                       Container(
-                        margin: EdgeInsets.all(10),
-                        child: Material(
-                          child: Container(
-                              child: HappinessSlider(
-                                  "VISIE",
-                                  AppColors.colorYellow,
-                                  AppColors.colorYellowInactive,
-                                  _updateYellowValue,
-                                  yellowValue)),
-                        ),
-//                      alignment: FractionalOffset.bottomRight,
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        child: Material(
-                          child: Container(
-                              child: HappinessSlider(
-                                  "ACTIE",
-                                  AppColors.colorRed,
-                                  AppColors.colorRedInactive,
-                                  _updateRedValue,
-                                  redValue)),
-                        ),
-//                      alignment: FractionalOffset.bottomRight,
-                      ),
+                          margin: EdgeInsets.all(10),
+                          child: HappinessSlider(
+                            "ACTIE",
+                            AppColors.colorRed,
+                            AppColors.colorRedInactive,
+                            redValue,
+                            _updateRedValue,
+                          )),
                     ],
                   ),
                   alignment: Alignment.topCenter,
@@ -199,11 +186,10 @@ class _MeterPageState extends State<MeterPage> {
               ),
               // text input 'subject'
               Container(
-                // color: Colors.grey[200],
                 alignment: Alignment.topCenter,
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+                padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
                 child: TextField(
-                  onSubmitted: (value) {},
+                  // onSubmitted: (value) {},
                   onChanged: (value) {
                     setState(() {
                       shouldDisableFab = false;
@@ -260,12 +246,12 @@ class _MeterPageState extends State<MeterPage> {
                   if (!isNewRecord) {
                     _updateRecord();
 
-                    showSnackBar(
+                    _showSnackBar(
                         context, allTranslations.text("meter.updated"));
                   } else {
                     _insertRecord();
 
-                    showSnackBar(
+                    _showSnackBar(
                         context, allTranslations.text("meter.recorded"));
                   }
                   shouldDisableFab = true;
@@ -294,7 +280,7 @@ class _MeterPageState extends State<MeterPage> {
   }
 }
 
-void showSnackBar(dynamic context, String msg) {
+void _showSnackBar(dynamic context, String msg) {
   Scaffold.of(context).showSnackBar(
       SnackBar(duration: Duration(seconds: 1), content: Text(msg)));
 }

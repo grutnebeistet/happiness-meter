@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:happiness_meter/bloc/bloc_provider.dart';
 import 'package:happiness_meter/preferences.dart';
 
-const List<String> _kSupportedLanguages = ["en","nl"];
-const String _kDefaultLanguage = "en";
+const List<String> _kSupportedLanguages = ["nl","nl"]; // TODO add change one of 'nl' to 'en'
+const String _kDefaultLanguage = "nl";
 
 class GlobalTranslations {
   Locale _locale;

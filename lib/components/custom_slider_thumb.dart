@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class CustomSliderThumb extends SliderComponentShape {
   final double width;
@@ -39,20 +40,19 @@ class CustomSliderThumb extends SliderComponentShape {
       ..color = Colors.white
       ..style = PaintingStyle.fill;
 
-    final borderPaint = Paint()
-      ..color = Colors.white
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-
     Path rectPath = Path();
     final rrect = RRect.fromRectXY(rect, 6, 6);
     rectPath.addRRect(rrect);
 
+
+
     Path linePath = Path();
     linePath.addRect(rectLine);
 
+    canvas.drawShadow(rectPath, Colors.black, 16, true);
+    canvas.drawShadow(linePath, Colors.black, 14, false);
+
     canvas.drawPath(rectPath, fillPaint);
     canvas.drawPath(linePath, fillPaintLine);
-    canvas.drawRect(rect, borderPaint);
   }
 }

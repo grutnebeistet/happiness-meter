@@ -1,6 +1,8 @@
 {
     "main": {
-        "page_title": "Geluksmeter"
+        "page_title": "Geluksmeter",
+        "tab_meter": "CQ Meter",
+        "tab_records":"Opgeslagen scores"
     },
     "settings":{
         "page_title": "Instellingen",

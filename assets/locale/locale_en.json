@@ -1,6 +1,8 @@
 {
     "main": {
-        "page_title": "Happiness Meter"
+        "page_title": "Happiness Meter",
+        "tab_meter": "HQ Meter",
+        "tab_records":"Records"
     },
     "settings":{
         "page_title": "Settings",

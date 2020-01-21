@@ -99,11 +99,11 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                     controller: _controller,
                                     tabs: [
                                       Tab(
-                                        text: "METER",
+                                        text: allTranslations.text('main.tab_meter'),
                                         icon: Icon(HappMeter.params, size: 40),
                                       ),
                                       Tab(
-                                        text: "RECORDS",
+                                         text: allTranslations.text('main.tab_records'),
                                         icon: Icon(HappMeter.list_1,
                                             size: 40), //insert_chart
                                       ),
