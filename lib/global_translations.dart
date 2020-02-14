@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:happiness_meter/bloc/bloc_provider.dart';
 import 'package:happiness_meter/preferences.dart';
 
-const List<String> _kSupportedLanguages = ["nl","nl"]; // TODO add change one of 'nl' to 'en'
+const List<String> _kSupportedLanguages = ["nl","nl"]; // TODO change one of 'nl' to 'en'
 const String _kDefaultLanguage = "nl";
 
 class GlobalTranslations {
@@ -87,6 +87,8 @@ class GlobalTranslations {
   ///
   Future<Null> setNewLanguage([String newLanguage]) async {
     String language = newLanguage;
+    language = _kDefaultLanguage; //TODO REMOVE FOR MULTI LANG
+    debugPrint("setNewLanguage: language $language, _kDefaultLanguage $_kDefaultLanguage" );
     if (language == null){
       var preferences = Preferences();
       language = await preferences.getPreferredLanguage();

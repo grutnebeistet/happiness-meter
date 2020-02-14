@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:happiness_meter/components/custom_slider_thumb.dart';
-import 'package:happiness_meter/components/custom_slider_track.dart';
-import 'package:happiness_meter/utils/record_drawing.dart';
 
 class HappinessSlider extends StatefulWidget {
   final primaryColor;

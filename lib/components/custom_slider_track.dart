@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+// TODO delete file?
 class CustomSliderTrack extends SliderTrackShape {
   @override
   Rect getPreferredRect({

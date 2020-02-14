@@ -1,8 +1,8 @@
 {
     "main": {
-        "page_title": "Geluksmeter",
-        "tab_meter": "CQ Meter",
-        "tab_records":"Opgeslagen scores"
+        "page_title": "De Geluksmeter",
+        "tab_meter": "GQ Meter",
+        "tab_records":"Bewaarde gegevens"
     },
     "settings":{
         "page_title": "Instellingen",
@@ -11,10 +11,10 @@
     "meter" : {
         "page_title": "Geluksmeter",
         "recorded": "GQ bewaard",
-        "updated": "HQ updated (TRANSLATE)",
+        "updated": "GQ aangepast",
         "save": "Bewaar",
         "saved": "Bewaard",
-        "situation_description": "Situatie",
+        "situation_description": "Beschrijving van de Situatie",
         "enter_notes_hint": "Notities invoeren"
     },
     "home" : {

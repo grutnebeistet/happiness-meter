@@ -14,7 +14,7 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.3.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -33,12 +33,18 @@ dependencies:
   charts_flutter: ^0.8.1
   preferences: ^5.0.2
   sqflite: ^1.0.0
-  percent_indicator: "^2.1.1"
+  percent_indicator: ^2.1.1
   shared_preferences: ^0.5.6
+  screenshot: ^0.1.1
   # cached_network_image: ^2.0.0
-  screenshot_share_image: ^0.0.4
+  # screenshot_share_image: ^0.0.4
+  # screenshot_share: ^0.0.1
+  # esys_flutter_share: ^1.0.2
+  flutter_share: ^1.0.2+1
+  permission_handler: ^4.2.0+hotfix.3
+  image_gallery_saver: ^1.2.2
 
-  path_provider: ^1.4.0
+  path_provider: ^1.6.0
 
   intl: ^0.16.0
   # intl_translation: ^0.17.7
@@ -57,6 +63,8 @@ flutter:
   assets:
     - assets/locale/locale_nl.json
     - assets/locale/locale_en.json
+    - assets/images/tab_meter_s.png
+    - assets/images/tab_meter.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

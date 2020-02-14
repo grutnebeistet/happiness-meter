@@ -125,7 +125,7 @@ class DatabaseHelper {
     Database db = await database;
     // int count = await db.update(tableHappinessRecords, record.toMap());
     debugPrint('attempting to update record: ${record.blueValue}');
-     debugPrint('attempting to update id: ${id}');
+     debugPrint('attempting to update id: $id');
     int count = await db.update(tableHappinessRecords, record.toMap(), where: "$columnId = ?", whereArgs: [id], conflictAlgorithm: ConflictAlgorithm.replace);
     debugPrint('updates on id $id: $count');
     return count;

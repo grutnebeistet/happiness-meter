@@ -200,12 +200,12 @@ class _MeterPageState extends State<MeterPage> {
                   maxLines: null,
                   controller: textController,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 18,
                   ),
                   decoration: InputDecoration(
                     labelText:
                         allTranslations.text("meter.situation_description"),
-                    labelStyle: (TextStyle(fontSize: 30)),
+                    labelStyle: (TextStyle(fontSize: 24)),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
                           BorderSide(color: Colors.blueGrey, width: 3.0),

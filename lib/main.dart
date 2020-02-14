@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:happiness_meter/bloc/bloc_provider.dart';
@@ -56,6 +57,8 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
               localizationsDelegates: [
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                DefaultCupertinoLocalizations.delegate
               ],
               supportedLocales: allTranslations.supportedLocales(),
               debugShowCheckedModeBanner: false,
@@ -99,11 +102,16 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                     controller: _controller,
                                     tabs: [
                                       Tab(
-                                        text: allTranslations.text('main.tab_meter'),
+                                        text: allTranslations
+                                            .text('main.tab_meter'),
                                         icon: Icon(HappMeter.params, size: 40),
+                                        // icon: new Image.asset("assets/images/tab_meter_s.png"), text: allTranslations
+                                        //     .text('main.tab_meter'),
+                                      
                                       ),
                                       Tab(
-                                         text: allTranslations.text('main.tab_records'),
+                                        text: allTranslations
+                                            .text('main.tab_records'),
                                         icon: Icon(HappMeter.list_1,
                                             size: 40), //insert_chart
                                       ),
@@ -131,8 +139,6 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                 record = newRecord;
                                 editMode = true;
                                 _controller.index = 0;
-
-                                //  TODO complete a Tab change listener
                               });
                             }),
                           ),

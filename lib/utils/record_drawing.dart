@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:happiness_meter/components/happiness_slider.dart';
 import 'package:happiness_meter/components/record_cylinder.dart';
 import 'package:happiness_meter/data/database_helpers.dart';
-import 'package:happiness_meter/model/record.dart';
 import 'package:happiness_meter/theme/app_colors.dart';
 
 class GraphPainter extends CustomPainter {
-  // final HappinessRecord dbRecord;
   final double value;
   final Color primaryColor;
   final Color inactiveColor;
   final double strokeWidth;
 
-
   GraphPainter(
-      this.value, this.primaryColor, this.inactiveColor, this.strokeWidth) {
-    //  debugPrint('GraphPainter id ${dbRecord.id} - B: ${dbRecord.blueValue} - G: ${dbRecord.greenValue} - Y: ${dbRecord.yellowValue}');
-  }
+      this.value, this.primaryColor, this.inactiveColor, this.strokeWidth);
 
   @override
   void paint(Canvas canvas, Size size) {
-    // double origin = 0;
-
     // foreground
     Paint trackBarPaint = Paint()
       ..color = primaryColor
@@ -51,10 +43,8 @@ class GraphPainter extends CustomPainter {
     canvas.drawPath(trackPath, trackPaint);
     canvas.drawPath(trackBarPath, trackBarPaint);
   }
-
   @override
-  bool shouldRepaint(GraphPainter oldDelegate) =>
-      oldDelegate.value != value;
+  bool shouldRepaint(GraphPainter oldDelegate) => oldDelegate.value != value;
 }
 
 Container buildResultGraph(HappinessRecord record) {
@@ -83,53 +73,19 @@ Container buildResultGraph(HappinessRecord record) {
         ),
       ),
       SizedBox(
-        height: 16,
+        height: 6,
       ),
-      // _buildGraphContainer(record, false),
-      Container(
-        child: Align(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                // TODO try set height and use fromHeight in
-                margin: EdgeInsets.all(10),
-                child: HappinessCylinder("PERCEPTIE", AppColors.colorBlue,
-                    AppColors.colorBlueInactive, record.blueValue,HappinessCylinder.detailsCylindeHeight),
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: HappinessCylinder("ACCEPTATIE", AppColors.colorGreen,
-                    AppColors.colorGreenInactive, record.greenValue, HappinessCylinder.detailsCylindeHeight),
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: HappinessCylinder("VISIE", AppColors.colorYellow,
-                    AppColors.colorYellowInactive, record.yellowValue, HappinessCylinder.detailsCylindeHeight),
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: HappinessCylinder("ACTIE", AppColors.colorRed,
-                    AppColors.colorRedInactive, record.redValue, HappinessCylinder.detailsCylindeHeight),
-              ),
-            ],
-          ),
-          // alignment: Alignment.topCenter,
-        ),
-      ),
+      _buildCylinderContainer(record, HappinessCylinder.detailsCylindeHeight, 12),
     ]),
   );
 }
 
-Container buildListResultGraph(HappinessRecord record, double height) {
+Container buildListResultGraph(HappinessRecord record) {
   return Container(
-    // color: Colors.blue,
     child: Column(children: <Widget>[
       Container(
-        // color: Colors.blue,
         height: 12,
-        // alignment: Alignment.center,
-        margin: EdgeInsets.fromLTRB(8, 10, 8, 8),
+        margin: EdgeInsets.fromLTRB(8, 10, 8, 0),
         width: double.infinity,
         child: LinearProgressIndicator(
           backgroundColor: AppColors.colorOrangeInactive,
@@ -137,86 +93,38 @@ Container buildListResultGraph(HappinessRecord record, double height) {
           value: record.totalHQ / 10,
         ),
       ),
-
-      // _buildGraphContainer(record, true),
-      Container(
-        child: Align(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.all(5),
-                child: HappinessCylinder("PERCEPTIE", AppColors.colorBlue,
-                    AppColors.colorBlueInactive, record.blueValue, height),
-              ),
-              Container(
-                margin: EdgeInsets.all(5),
-                child: HappinessCylinder("ACCEPTATIE", AppColors.colorGreen,
-                    AppColors.colorGreenInactive, record.greenValue, height),
-              ),
-              Container(
-                margin: EdgeInsets.all(5),
-                child: HappinessCylinder("VISIE", AppColors.colorYellow,
-                    AppColors.colorYellowInactive, record.yellowValue, height),
-              ),
-              Container(
-                margin: EdgeInsets.all(5),
-                child: HappinessCylinder("ACTIE", AppColors.colorRed,
-                    AppColors.colorRedInactive, record.redValue, height),
-              ),
-            ],
-          ),
-          // alignment: Alignment.topCenter,
-        ),
-      ),
-      // if (record.situation.isNotEmpty)
-      //   Container(
-      //     // padding: EdgeInsets.all(20),
-      //     margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-      //     alignment: Alignment.topLeft,
-      //     decoration: BoxDecoration(
-      //       border: Border.all(color: Colors.blueGrey, width: 3),
-      //     ),
-      //     child: Text(
-      //       record.situation,
-      //       style: TextStyle(
-      //         fontSize: 24,
-      //       ),
-      //     ),
-      //   ),
+      _buildCylinderContainer(record, HappinessCylinder.listCylindeHeight, 5),
     ]),
   );
 }
-
-// Container _buildGraphContainer(HappinessRecord record, double height){
-//     return Container(
-//           child: Align(
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: <Widget>[
-//                 Container(
-//                   margin: EdgeInsets.all(10),
-//                   child: HappinessCylinder("PERCEPTIE", AppColors.colorBlue,
-//                       AppColors.colorBlueInactive, record.blueValue, height),
-//                 ),
-//                 Container(
-//                   margin: EdgeInsets.all(10),
-//                   child: HappinessCylinder("ACCEPTATIE", AppColors.colorGreen,
-//                       AppColors.colorGreenInactive, record.greenValue, height),
-//                 ),
-//                 Container(
-//                   margin: EdgeInsets.all(10),
-//                   child: HappinessCylinder("VISIE", AppColors.colorYellow,
-//                       AppColors.colorYellowInactive, record.yellowValue, height),
-//                 ),
-//                 Container(
-//                   margin: EdgeInsets.all(10),
-//                   child: HappinessCylinder("ACTIE", AppColors.colorRed,
-//                       AppColors.colorRedInactive, record.redValue, height),
-//                 ),
-//               ],
-//             ),
-//             // alignment: Alignment.topCenter,
-//           ),
-//         );
-// }
+Container _buildCylinderContainer(HappinessRecord record, double height, double margin) {
+    return Container(
+      child: Align(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(margin),
+              child: HappinessCylinder("PERCEPTIE", AppColors.colorBlue,
+                  AppColors.colorBlueInactive, record.blueValue, height),
+            ),
+            Container(
+              margin: EdgeInsets.all(margin),
+              child: HappinessCylinder("ACCEPTATIE", AppColors.colorGreen,
+                  AppColors.colorGreenInactive, record.greenValue, height),
+            ),
+            Container(
+              margin: EdgeInsets.all(margin),
+              child: HappinessCylinder("VISIE", AppColors.colorYellow,
+                  AppColors.colorYellowInactive, record.yellowValue, height),
+            ),
+            Container(
+              margin: EdgeInsets.all(margin),
+              child: HappinessCylinder("ACTIE", AppColors.colorRed,
+                  AppColors.colorRedInactive, record.redValue, height),
+            ),
+          ],
+        ),
+      ),
+    );
+  }

@@ -2,25 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:happiness_meter/utils/record_drawing.dart';
 
 class HappinessCylinder extends StatelessWidget {
-    static const double detailsCylindeHeight = 320.0;
-  static const double listCylindeHeight = 120.0;
+  static const double detailsCylindeHeight = 320.0;
+  static const double listCylindeHeight = 135.0;
   final primaryColor;
   final inactiveColor;
   final value;
   final cylinderTitle;
   final double cylinderHeight;
-  // final bool isListItem;
 
-  double fontSize;
-  // double cylinderWidth;
-  EdgeInsets cylinderPadding;
+  double _fontSize;
+  EdgeInsets _cylinderPadding;
 
   HappinessCylinder(this.cylinderTitle, this.primaryColor, this.inactiveColor,
       this.value, this.cylinderHeight) {
-    fontSize = cylinderHeight == detailsCylindeHeight ? 24 : 10;
-    cylinderPadding =
-        cylinderHeight == detailsCylindeHeight  ?   EdgeInsets.only(right: 16, left: 16, bottom: 24):EdgeInsets.only(bottom: 8);
-        // cylinderWidth = cylinderHeight == 400  ? 32 : 32;
+    _fontSize = cylinderHeight == detailsCylindeHeight ? 24 :10;
+    _cylinderPadding = cylinderHeight == detailsCylindeHeight
+        ? EdgeInsets.only(right: 16, left: 16, bottom: 24)
+        : EdgeInsets.only(bottom: 11, right: 2);
   }
 
   @override
@@ -37,35 +35,31 @@ class HappinessCylinder extends StatelessWidget {
               Container(
                 width: 1,
                 child: Text(
-                  cylinderTitle,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontSize: fontSize, //cylinderHeight / 16.6, //24,
+                    cylinderTitle,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontSize: _fontSize,
+                    ),
                   ),
-                ),
               ),
               Column(
                 children: <Widget>[
-                  Padding(
-                    padding: cylinderPadding, //16.0),
-                    child: Container(
-
+                     Container(
+                       margin: _cylinderPadding,
                       alignment: Alignment.center,
                       width: 32,
                       child: Text(
                         value.toInt().toString(),
-                        style: TextStyle(
-                            color: primaryColor, fontSize: fontSize), //24.0),
+                        style:
+                            TextStyle(color: primaryColor, fontSize: _fontSize),
                       ),
                     ),
-                  ),
                   Expanded(
                     child: Container(
-                      // height: 45,
                       child: CustomPaint(
-                        foregroundPainter: GraphPainter(value,
-                            primaryColor, inactiveColor, fontSize),
+                        foregroundPainter: GraphPainter(
+                            value, primaryColor, inactiveColor, _fontSize * 1.4),
                       ),
                     ),
                   ),

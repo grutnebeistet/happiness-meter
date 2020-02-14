@@ -9,7 +9,7 @@ class DateUtils{
                                               .toString();
   }
    static String getPrettyDateAndTime(int date){
-   return DateFormat.yMMMMEEEEd(allTranslations.locale.toString())
+   return DateFormat.yMMMEd(allTranslations.locale.toString())
                                               .add_jm()
                                               .format(DateTime.fromMillisecondsSinceEpoch(date))
                                               .toString();

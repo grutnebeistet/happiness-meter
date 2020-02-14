@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:happiness_meter/components/record_cylinder.dart';
 import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/main.dart';
@@ -46,8 +45,6 @@ class _StateRecordsPage extends State<RecordListPage> {
                                 builder: (context) =>
                                     RecordDetailsPage(record)),
                           );
-                          // TODO Details page
-                          // onEditPressed(null);
                         },
                         child: Container(
                           margin: new EdgeInsets.symmetric(
@@ -81,31 +78,9 @@ class _StateRecordsPage extends State<RecordListPage> {
                                               letterSpacing: 1.3,
                                               color: Color(0xff5b6990)),
                                         ),
-                                        // SizedBox(
-                                        //   height: 44,
-                                        // ),
-                                        // Container(
-                                        //   // margin: EdgeInsets.only(right: 30),
-                                        //   height: 36,
-                                        //   padding: EdgeInsets.only(
-                                        //       bottom: 10, top: 10),
-                                        //   child: LinearProgressIndicator(
-                                        //     backgroundColor: Color(0xffdee6f1),
-                                        //     valueColor:
-                                        //         AlwaysStoppedAnimation<Color>(
-                                        //             AppColors.colorOrange),
-                                        //     value: record.totalHQ/10,
-                                        //   ),
-                                        // ),
                                         Container(
-                                          // padding: EdgeInsets.only(top: 10, ),
-                                          // height: 160,
                                           width: 200,
-                                          child: buildListResultGraph(record, HappinessCylinder.listCylindeHeight),
-                                          // child: CustomPaint(
-                                          //   foregroundPainter:
-                                          //       GraphPainter(record),
-                                          // ),
+                                          child: buildListResultGraph(record),
                                         )
                                       ],
                                     ),
