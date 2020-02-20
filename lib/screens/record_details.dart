@@ -19,6 +19,7 @@ class RecordDetailsPage extends StatefulWidget {
 class _RecordDetailsPageState extends State<RecordDetailsPage> {
   final HappinessRecord record;
   ScreenshotController screenshotController = ScreenshotController();
+  bool capturingScreen = false;
 
   _RecordDetailsPageState(this.record);
   @override
@@ -27,30 +28,38 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
       controller: screenshotController,
       child: new Scaffold(
         appBar: AppBar(
+          backgroundColor: capturingScreen ? Colors.white : Colors.blueGrey,
           title: Text(
             DateUtils.getPrettyDateAndTime(record.date),
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(
+              fontSize: 16,
+              color: capturingScreen ? Colors.black : Colors.white,
+            ),
           ),
+          // TODO logo if capturingScreen
           actions: <Widget>[
+            if(!capturingScreen)
             IconButton(
               icon: Icon(Icons.share),
-              color: Colors.white,
+              // color: capturingScreen ? Colors.blueGrey : Colors.white,
               onPressed: () async {
+                setState(() {
+                  capturingScreen = true;
+                });
                 _captureAndShare();
               },
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: buildResultGraph(record),
-                margin: EdgeInsets.only(bottom: 20),
-              ),
-              // if (record.situation.isNotEmpty)
-              Container(
-                height: 200,
+        body: Column(
+          children: <Widget>[
+            Container(
+              child: buildResultGraph(record),
+              margin: EdgeInsets.only(bottom: 20),
+            ),
+            // if (record.situation.isNotEmpty)
+            Expanded(
+              child: Container(
                 padding: EdgeInsets.all(20),
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                 alignment: Alignment.topLeft,
@@ -72,8 +81,8 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
                 //   //     ),
                 // ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -87,6 +96,10 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
       await Share.file("HEHE", "$fileName.jpg", bytes, 'image/png',
           text:
               "Happiness recorded ${DateUtils.getPrettyDateAndTime(record.date)}");
+
+      setState(() {
+        capturingScreen = false;
+      });
     }).catchError(
       (onError) {
         print(onError);
