@@ -1,14 +1,14 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/utils/date_utils.dart';
 import 'package:happiness_meter/utils/record_drawing.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:flutter_share/flutter_share.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 
 class RecordDetailsPage extends StatefulWidget {
   final HappinessRecord record;
@@ -37,27 +37,7 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
               icon: Icon(Icons.share),
               color: Colors.white,
               onPressed: () async {
-                debugPrint("takeScreenshotShareImage");
-                final directory =
-                    (await getApplicationDocumentsDirectory()).path;
-                String fileName = DateTime.now().toIso8601String();
-                String path = '$directory/$fileName.png';
-                // capture image
-                screenshotController
-                    .capture(path: path, delay: Duration(milliseconds: 10))
-                    .then((File image) async {
-                  // save image
-                  await ImageGallerySaver.saveImage(image.readAsBytesSync());
-
-                  // share image
-                  await FlutterShare.shareFile(
-                    title: 'Example share',
-                    text: 'Example share text',
-                    filePath: path
-                  );
-                }).catchError((onError) {
-                  print(onError);
-                });
+                _captureAndShare();
               },
             ),
           ],
@@ -88,6 +68,21 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
           ),
         ),
       ),
+    );
+  }
+
+  _captureAndShare() {
+    String fileName =
+        "Bewaarde gegenvens ${DateUtils.getPrettyDateAndTime(record.date)}";
+    screenshotController.capture().then((File image) async {
+      Uint8List bytes = image.readAsBytesSync();
+      await Share.file("HEHE", "$fileName.jpg", bytes, 'image/png',
+          text:
+              "Happiness recorded ${DateUtils.getPrettyDateAndTime(record.date)}");
+    }).catchError(
+      (onError) {
+        print(onError);
+      },
     );
   }
 }
