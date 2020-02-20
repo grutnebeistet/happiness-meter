@@ -2,13 +2,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:happiness_meter/data/database_helpers.dart';
 import 'package:happiness_meter/utils/date_utils.dart';
 import 'package:happiness_meter/utils/record_drawing.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class RecordDetailsPage extends StatefulWidget {
   final HappinessRecord record;
@@ -49,21 +48,30 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
                 child: buildResultGraph(record),
                 margin: EdgeInsets.only(bottom: 20),
               ),
-              if (record.situation.isNotEmpty)
-                Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                  alignment: Alignment.topLeft,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blueGrey, width: 3),
-                  ),
-                  child: Text(
-                    record.situation,
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
+              // if (record.situation.isNotEmpty)
+              Container(
+                height: 200,
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                alignment: Alignment.topLeft,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blueGrey, width: 3),
                 ),
+                child: AutoSizeText(
+                  record.situation,
+                  style: TextStyle(fontSize: 40),
+                  minFontSize: 8,
+                  stepGranularity: 2,
+                  maxLines: 40,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                // child: Text(
+                //   record.situation,
+                //   // style: TextStyle(backgroundColor: Colors.yellow
+                //   //     // fontSize: 24,
+                //   //     ),
+                // ),
+              ),
             ],
           ),
         ),

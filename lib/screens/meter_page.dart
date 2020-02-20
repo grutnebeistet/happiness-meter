@@ -197,6 +197,7 @@ class _MeterPageState extends State<MeterPage> {
                   },
                   textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.multiline,
+                  maxLength: 350,
                   maxLines: null,
                   controller: textController,
                   style: TextStyle(
