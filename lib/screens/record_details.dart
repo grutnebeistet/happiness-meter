@@ -29,19 +29,16 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
       child: new Scaffold(
         appBar: AppBar(
           backgroundColor: capturingScreen ? Colors.white : Colors.blueGrey,
-          title: Text(
-            DateUtils.getPrettyDateAndTime(record.date),
-            style: TextStyle(
-              fontSize: 16,
-              color: capturingScreen ? Colors.black : Colors.white,
-            ),
+          title: Container(
+            alignment: Alignment.center,
+            child: _appBarTitle(),
           ),
-          // TODO logo if capturingScreen
           actions: <Widget>[
-            if(!capturingScreen)
             IconButton(
               icon: Icon(Icons.share),
-              // color: capturingScreen ? Colors.blueGrey : Colors.white,
+              color: Colors.white,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               onPressed: () async {
                 setState(() {
                   capturingScreen = true;
@@ -57,7 +54,6 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
               child: buildResultGraph(record),
               margin: EdgeInsets.only(bottom: 20),
             ),
-            // if (record.situation.isNotEmpty)
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(20),
@@ -68,18 +64,12 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
                 ),
                 child: AutoSizeText(
                   record.situation,
-                  style: TextStyle(fontSize: 40),
+                  style: TextStyle(fontSize: 32),
                   minFontSize: 8,
-                  stepGranularity: 2,
+                  stepGranularity: 1,
                   maxLines: 40,
                   overflow: TextOverflow.ellipsis,
                 ),
-                // child: Text(
-                //   record.situation,
-                //   // style: TextStyle(backgroundColor: Colors.yellow
-                //   //     // fontSize: 24,
-                //   //     ),
-                // ),
               ),
             ),
           ],
@@ -88,15 +78,39 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
     );
   }
 
+  // TODO show logo if capturingScreen
+  _appBarTitle() {
+    return Column(
+      children: <Widget>[
+        Text(
+          DateUtils.getPrettyDate(record.date),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            color: capturingScreen ? Colors.black : Colors.white,
+          ),
+        ),
+        Text(
+          DateUtils.getPrettyTime(record.date),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 12,
+            color: capturingScreen ? Colors.black : Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+
   _captureAndShare() {
     String fileName =
         "Bewaarde gegenvens ${DateUtils.getPrettyDateAndTime(record.date)}";
-    screenshotController.capture().then((File image) async {
+    screenshotController.capture(pixelRatio: 1.5).then((File image) async {
       Uint8List bytes = image.readAsBytesSync();
-      await Share.file("HEHE", "$fileName.jpg", bytes, 'image/png',
+      await Share.file(
+          "Bewaarde gegenvens", "$fileName.jpg", bytes, 'image/jpg',
           text:
               "Happiness recorded ${DateUtils.getPrettyDateAndTime(record.date)}");
-
       setState(() {
         capturingScreen = false;
       });

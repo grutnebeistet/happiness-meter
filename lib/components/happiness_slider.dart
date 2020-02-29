@@ -66,8 +66,8 @@ class _HappinessSliderState extends State<HappinessSlider> {
                       alignment: Alignment.center,
                       width: 32,
                       child: Text(
-                        value.toInt().toString(),
-                        style: TextStyle(color: primaryColor, fontSize: 24.0),
+                        (value/2).toString(),
+                        style: TextStyle(color: primaryColor, fontSize: 16.0),
                       ),
                     ),
                   ),
@@ -111,8 +111,8 @@ class _HappinessSliderState extends State<HappinessSlider> {
             quarterTurns: 3,
             child: Slider(
               min: 0.0,
-              max: 10.0,
-              divisions: 10,
+              max: 20.0,
+              divisions: 20,
               value: value,
               onChanged: (newValue) {
                 updateValue(newValue);

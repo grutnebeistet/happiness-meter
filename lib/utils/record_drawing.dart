@@ -57,7 +57,7 @@ Container buildResultGraph(HappinessRecord record) {
         child: LinearProgressIndicator(
           backgroundColor: AppColors.colorOrangeInactive,
           valueColor: AlwaysStoppedAnimation<Color>(AppColors.colorOrange),
-          value: record.totalHQ / 10,
+          value: record.totalHQ / 20,
         ),
       ),
       Container(
@@ -90,7 +90,7 @@ Container buildListResultGraph(HappinessRecord record) {
         child: LinearProgressIndicator(
           backgroundColor: AppColors.colorOrangeInactive,
           valueColor: AlwaysStoppedAnimation<Color>(AppColors.colorOrange),
-          value: record.totalHQ / 10,
+          value: record.totalHQ / 20,
         ),
       ),
       _buildCylinderContainer(record, HappinessCylinder.listCylindeHeight, 5),

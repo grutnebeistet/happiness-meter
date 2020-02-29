@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:happiness_meter/utils/record_drawing.dart';
 
@@ -15,7 +16,7 @@ class HappinessCylinder extends StatelessWidget {
 
   HappinessCylinder(this.cylinderTitle, this.primaryColor, this.inactiveColor,
       this.value, this.cylinderHeight) {
-    _fontSize = cylinderHeight == detailsCylindeHeight ? 24 :10;
+    _fontSize = cylinderHeight == detailsCylindeHeight ? 16 : 10; // TODO Refactor fontsize mess
     _cylinderPadding = cylinderHeight == detailsCylindeHeight
         ? EdgeInsets.only(right: 16, left: 16, bottom: 24)
         : EdgeInsets.only(bottom: 11, right: 2);
@@ -35,31 +36,39 @@ class HappinessCylinder extends StatelessWidget {
               Container(
                 width: 1,
                 child: Text(
-                    cylinderTitle,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: primaryColor,
-                      fontSize: _fontSize,
-                    ),
+                  cylinderTitle,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontSize: cylinderHeight == detailsCylindeHeight ? _fontSize *1.4 : _fontSize, 
                   ),
+                ),
               ),
               Column(
                 children: <Widget>[
-                     Container(
-                       margin: _cylinderPadding,
-                      alignment: Alignment.center,
-                      width: 32,
-                      child: Text(
-                        value.toInt().toString(),
-                        style:
-                            TextStyle(color: primaryColor, fontSize: _fontSize),
-                      ),
+                  Container(
+                    margin: _cylinderPadding,
+                    alignment: Alignment.center,
+                    width: 32,
+                    // child: AutoSizeText(
+                    //   (value / 2).toString(),
+                    //   style: TextStyle(fontSize: _fontSize),
+                    //   minFontSize: 8,
+                    //   stepGranularity: 1,
+                    //   maxLines: 1,
+                    // ),
+                    child: Text(
+                      (value / 2).toString(),
+                      maxLines: 1,
+                      style:
+                          TextStyle(color: primaryColor, fontSize: _fontSize),
                     ),
+                  ),
                   Expanded(
                     child: Container(
                       child: CustomPaint(
-                        foregroundPainter: GraphPainter(
-                            value, primaryColor, inactiveColor, _fontSize * 1.4),
+                        foregroundPainter: GraphPainter(value / 2, primaryColor,
+                            inactiveColor, cylinderHeight == detailsCylindeHeight ? 30 : 14),
                       ),
                     ),
                   ),

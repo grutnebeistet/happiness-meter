@@ -14,4 +14,9 @@ class DateUtils{
                                               .format(DateTime.fromMillisecondsSinceEpoch(date))
                                               .toString();
   }
+  static String getPrettyTime(int date){
+    return DateFormat.Hm(allTranslations.locale.toString())
+    .format(DateTime.fromMillisecondsSinceEpoch(date))
+    .toString();
+  }
 }

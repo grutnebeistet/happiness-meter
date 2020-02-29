@@ -7,8 +7,56 @@ import 'package:happiness_meter/global_translations.dart';
 import 'package:happiness_meter/screens/meter_page.dart';
 import 'package:happiness_meter/screens/record_list_page.dart';
 import 'package:happiness_meter/theme/happ_meter_icons.dart';
+import 'package:flutter_launcher_icons/android.dart';
+import 'package:flutter_launcher_icons/constants.dart';
+import 'package:flutter_launcher_icons/custom_exceptions.dart';
+import 'package:flutter_launcher_icons/ios.dart';
+import 'package:flutter_launcher_icons/main.dart';
+import 'package:flutter_launcher_icons/xml_templates.dart';
+import 'dart:async';
+import 'dart:io';
+// import 'package:testfairy/testfairy.dart';
+
+var TOKEN = "SDK-GQZYxIrO";
 
 void main() async {
+  // HttpOverrides.runWithHttpOverrides(
+  //     () async {
+  //       try {
+  //         // Enables widget error logging
+  //         FlutterError.onError =
+  //             (details) => TestFairy.logError(details.exception);
+
+  //         TestFairy.setServerEndpoint("https://7135426.testfairy.com");
+
+  //         // Initializes a session
+  //         await TestFairy.begin(TOKEN);
+
+  //         // Runs your app
+  //         WidgetsFlutterBinding.ensureInitialized();
+  //         // await PrefService.init(prefix: 'pref_');
+  //         await allTranslations.init();
+
+  //         runApp(MyApp());
+  //       } catch (error) {
+  //         // Logs synchronous errors
+  //         TestFairy.logError(error);
+  //       }
+  //     },
+
+  //     // Logs network events
+  //     TestFairy.httpOverrides(),
+
+  //     // Logs asynchronous errors
+  //     onError: TestFairy.logError,
+
+  //     // Logs console messages
+  //     zoneSpecification: new ZoneSpecification(
+  //       print: (self, parent, zone, message) {
+  //         TestFairy.log(message);
+  //       },
+  //     ));
+
   WidgetsFlutterBinding.ensureInitialized();
   // await PrefService.init(prefix: 'pref_');
   await allTranslations.init();
@@ -102,12 +150,13 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                     controller: _controller,
                                     tabs: [
                                       Tab(
+                                        // text: allTranslations
+                                        //     .text('main.tab_meter'),
+                                        // icon: Icon(HappMeter.params, size: 40),
+                                        icon: new Image.asset(
+                                            "assets/images/tab_meter_s.png"),
                                         text: allTranslations
                                             .text('main.tab_meter'),
-                                        icon: Icon(HappMeter.params, size: 40),
-                                        // icon: new Image.asset("assets/images/tab_meter_s.png"), text: allTranslations
-                                        //     .text('main.tab_meter'),
-                                      
                                       ),
                                       Tab(
                                         text: allTranslations

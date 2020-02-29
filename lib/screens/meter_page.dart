@@ -29,8 +29,6 @@ class _MeterPageState extends State<MeterPage> {
 
   var shouldDisableFab = false;
 
-  // _MeterPageState(){}
-
   _MeterPageState([this.happinessRecord]) {
     // TODO two constructors
     if (happinessRecord != null) {
@@ -104,6 +102,7 @@ class _MeterPageState extends State<MeterPage> {
     return new Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          color: Colors.white,
           child: Column(
             children: <Widget>[
               // if (happinessRecord != null) // TODO hidden for demo
@@ -146,8 +145,10 @@ class _MeterPageState extends State<MeterPage> {
                         margin: EdgeInsets.all(10),
                         child: HappinessSlider(
                           "PERCEPTIE",
+                          // "",
                           AppColors.colorBlue,
                           AppColors.colorBlueInactive,
+                          // AppColors.colorBlue,
                           blueValue,
                           _updateBlueValue,
                         ),
@@ -156,8 +157,10 @@ class _MeterPageState extends State<MeterPage> {
                           margin: EdgeInsets.all(10),
                           child: HappinessSlider(
                             "ACCEPTATIE",
+                            // "",
                             AppColors.colorGreen,
                             AppColors.colorGreenInactive,
+                            // AppColors.colorGreen,
                             greenValue,
                             _updateGreenValue,
                           )),
@@ -165,7 +168,9 @@ class _MeterPageState extends State<MeterPage> {
                           margin: EdgeInsets.all(10),
                           child: HappinessSlider(
                             "VISIE",
+                            // "",
                             AppColors.colorYellow,
+                            // AppColors.colorYellow,
                             AppColors.colorYellowInactive,
                             yellowValue,
                             _updateYellowValue,
@@ -174,8 +179,10 @@ class _MeterPageState extends State<MeterPage> {
                           margin: EdgeInsets.all(10),
                           child: HappinessSlider(
                             "ACTIE",
+                            // "",
                             AppColors.colorRed,
                             AppColors.colorRedInactive,
+                              //  AppColors.colorRed,
                             redValue,
                             _updateRedValue,
                           )),

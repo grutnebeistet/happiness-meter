@@ -39,7 +39,7 @@ dependencies:
   esys_flutter_share: ^1.0.2
   path_provider: ^1.6.0
   auto_size_text: ^2.1.0
-
+  flutter_launcher_icons: ^0.7.4
   intl: ^0.16.0
   # intl_translation: ^0.17.7
   rxdart: ^0.21.0
@@ -59,6 +59,13 @@ flutter:
     - assets/locale/locale_en.json
     - assets/images/tab_meter_s.png
     - assets/images/tab_meter.png
+
+
+# https://pub.dev/packages/flutter_launcher_icons#-readme-tab-
+    # flutter_icons:
+#   android: "launcher_icon" 
+#   ios: true
+  # image_path: "assets/images/icon.png"
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
