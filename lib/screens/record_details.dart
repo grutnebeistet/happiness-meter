@@ -51,7 +51,7 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
         body: Column(
           children: <Widget>[
             Container(
-              child: buildResultGraph(record),
+              child: buildResultGraph(record, context),
               margin: EdgeInsets.only(bottom: 20),
             ),
             Expanded(

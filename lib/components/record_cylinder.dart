@@ -16,7 +16,9 @@ class HappinessCylinder extends StatelessWidget {
 
   HappinessCylinder(this.cylinderTitle, this.primaryColor, this.inactiveColor,
       this.value, this.cylinderHeight) {
-    _fontSize = cylinderHeight == detailsCylindeHeight ? 16 : 10; // TODO Refactor fontsize mess
+    _fontSize = cylinderHeight == detailsCylindeHeight
+        ? 16
+        : 10; // TODO Refactor fontsize mess
     _cylinderPadding = cylinderHeight == detailsCylindeHeight
         ? EdgeInsets.only(right: 16, left: 16, bottom: 24)
         : EdgeInsets.only(bottom: 11, right: 2);
@@ -40,7 +42,9 @@ class HappinessCylinder extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: primaryColor,
-                    fontSize: cylinderHeight == detailsCylindeHeight ? _fontSize *1.4 : _fontSize, 
+                    fontSize: cylinderHeight == detailsCylindeHeight
+                        ? _fontSize * 1.4
+                        : _fontSize,
                   ),
                 ),
               ),
@@ -58,7 +62,8 @@ class HappinessCylinder extends StatelessWidget {
                     //   maxLines: 1,
                     // ),
                     child: Text(
-                      (value / 2).toString(),
+                      // (value / 2).toString(),
+                      (value).toInt().toString(),
                       maxLines: 1,
                       style:
                           TextStyle(color: primaryColor, fontSize: _fontSize),
@@ -67,8 +72,11 @@ class HappinessCylinder extends StatelessWidget {
                   Expanded(
                     child: Container(
                       child: CustomPaint(
-                        foregroundPainter: GraphPainter(value / 2, primaryColor,
-                            inactiveColor, cylinderHeight == detailsCylindeHeight ? 30 : 14),
+                        foregroundPainter: GraphPainter(
+                            value,
+                            primaryColor,
+                            inactiveColor,
+                            cylinderHeight == detailsCylindeHeight ? 30 : 14),
                       ),
                     ),
                   ),

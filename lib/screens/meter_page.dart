@@ -114,28 +114,51 @@ class _MeterPageState extends State<MeterPage> {
               //     ),
               //   ),
               Container(
-                height: 22,
                 width: double.infinity,
-                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: LinearProgressIndicator(
-                  backgroundColor: AppColors.colorOrangeInactive,
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(AppColors.colorOrange),
-                  value: average / 10,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      margin: EdgeInsets.only(right: 15),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            height: 22,
+                            width: double.infinity,
+                            margin: EdgeInsets.fromLTRB(20, 20, 4, 0),
+                            child: LinearProgressIndicator(
+                              backgroundColor: AppColors.colorOrangeInactive,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.colorOrange),
+                              value: average / 10,
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 25,
+                            padding: EdgeInsets.fromLTRB(20, 2, 0, 0),
+                            child: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                "0       1       2       3       4       5       6       7       8       9       10",
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      average.toString(),
+                      style: TextStyle(
+                        color: AppColors.colorOrange,
+                        
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Container(
-                width: double.infinity,
-                height: 25,
-                padding: EdgeInsets.fromLTRB(20, 2, 16, 0),
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Text(
-                    "0       1       2       3       4       5       6       7       8       9       10",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
+
               Container(
                 child: Align(
                   child: Row(
@@ -182,7 +205,7 @@ class _MeterPageState extends State<MeterPage> {
                             // "",
                             AppColors.colorRed,
                             AppColors.colorRedInactive,
-                              //  AppColors.colorRed,
+                            //  AppColors.colorRed,
                             redValue,
                             _updateRedValue,
                           )),
