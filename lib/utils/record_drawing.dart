@@ -56,13 +56,14 @@ Container buildResultGraph(HappinessRecord record, BuildContext context) {
         child: Row(
           children: <Widget>[
             Container(
-              width: MediaQuery.of(context).size.width * 0.85,
-              margin: EdgeInsets.only(right: 15),
+              width: MediaQuery.of(context).size.width * 0.82,
+              margin: EdgeInsets.only(right: 4),
               child: Column(children: <Widget>[
                 Container(
-                  height: 22,
+                  height: 25,
                   width: double.infinity,
                   margin: EdgeInsets.fromLTRB(20, 20, 4, 0),
+                  padding: EdgeInsets.only(top: 4.5, bottom: 1),
                   child: LinearProgressIndicator(
                     backgroundColor: AppColors.colorOrangeInactive,
                     valueColor:
@@ -86,35 +87,14 @@ Container buildResultGraph(HappinessRecord record, BuildContext context) {
             ),
             Text(
               record.totalHQ.toString(),
-              style: TextStyle(
+              style: TextStyle(fontSize: 27,
+              fontWeight: FontWeight.bold,
                 color: AppColors.colorOrange,
               ),
             ),
           ],
         ),
       ),
-      // Container(
-      //   height: 22,
-      //   width: double.infinity,
-      //   margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-      //   child: LinearProgressIndicator(
-      //     backgroundColor: AppColors.colorOrangeInactive,
-      //     valueColor: AlwaysStoppedAnimation<Color>(AppColors.colorOrange),
-      //     value: record.totalHQ / 10,
-      //   ),
-      // ),
-      // Container(
-      //   width: double.infinity,
-      //   height: 25,
-      //   padding: EdgeInsets.fromLTRB(20, 2, 16, 0),
-      //   child: FittedBox(
-      //     fit: BoxFit.fitWidth,
-      //     child: Text(
-      //       "0       1       2       3       4       5       6       7       8       9       10",
-      //       textAlign: TextAlign.center,
-      //     ),
-      //   ),
-      // ),
       SizedBox(
         height: 6,
       ),

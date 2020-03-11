@@ -125,52 +125,6 @@ class _StateRecordsPage extends State<RecordListPage> {
                                       GestureDetector(
                                         onTap: () {
                                           _showAlertDialog(context, record.id);
-                                          // showAlertDialog(
-                                          //     BuildContext context) {
-                                          // set up the buttons
-                                          // Widget cancelButton = FlatButton(
-                                          //   child: Text("Cancel"),
-                                          //   onPressed: () {
-                                          //     Navigator.of(context).pop();
-                                          //   },
-                                          // );
-                                          // Widget okButton = FlatButton(
-                                          //   child: Text("OK"),
-                                          //   onPressed: () {
-                                          //     setState(
-                                          //       () {
-                                          //         DatabaseHelper.instance
-                                          //             .deleteRecord(record.id);
-                                          //         Navigator.of(context).pop();
-                                          //       },
-                                          //     );
-                                          //     // Show a snackbar. This snackbar could also contain "Undo" actions.
-                                          //     Scaffold.of(context).showSnackBar(
-                                          //         SnackBar(
-                                          //             duration:
-                                          //                 Duration(seconds: 1),
-                                          //             content: Text(
-                                          //                 allTranslations.text(
-                                          //                     "home.removed"))));
-                                          //   },
-                                          // );
-
-                                          // // set up the AlertDialog
-                                          // AlertDialog alert = AlertDialog(
-                                          //   title: Text("Remove record?"),
-                                          //   content: Text(
-                                          //       "Are you sure about this?"),
-                                          //   actions: [cancelButton, okButton],
-                                          // );
-
-                                          // // show the dialog
-                                          // showDialog(
-                                          //   context: context,
-                                          //   builder: (BuildContext context) {
-                                          //     return alert;
-                                          //   },
-                                          // );
-                                          // }
                                         },
                                         child: Container(
                                           height: 90,
@@ -215,7 +169,7 @@ class _StateRecordsPage extends State<RecordListPage> {
   _showAlertDialog(BuildContext context, int recordID) {
     // set up the buttons
     Widget cancelButton = FlatButton(
-      child: Text("Cancel"),
+      child: Text("Annuleren"),
       onPressed: () {
         Navigator.of(context).pop();
       },
@@ -238,8 +192,8 @@ class _StateRecordsPage extends State<RecordListPage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Remove record?"),
-      content: Text("Are you sure about this?"),
+      title: Text("Bevestiging"),
+      content: Text("Weet je zeker dat je deze gegevens wil wissen?"),
       actions: [cancelButton, okButton],
     );
 

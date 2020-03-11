@@ -118,14 +118,15 @@ class _MeterPageState extends State<MeterPage> {
                 child: Row(
                   children: <Widget>[
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      margin: EdgeInsets.only(right: 15),
+                      width: MediaQuery.of(context).size.width * 0.82,
+                      margin: EdgeInsets.only(right: 4),
                       child: Column(
                         children: <Widget>[
                           Container(
-                            height: 22,
+                            height: 25,
                             width: double.infinity,
                             margin: EdgeInsets.fromLTRB(20, 20, 4, 0),
+                            padding: EdgeInsets.only(top: 4.5, bottom: 1),
                             child: LinearProgressIndicator(
                               backgroundColor: AppColors.colorOrangeInactive,
                               valueColor: AlwaysStoppedAnimation<Color>(
@@ -148,11 +149,16 @@ class _MeterPageState extends State<MeterPage> {
                         ],
                       ),
                     ),
-                    Text(
-                      average.toString(),
-                      style: TextStyle(
-                        color: AppColors.colorOrange,
-                        
+                    Container(
+                      // color: Colors.blueGrey,
+                      // alignment: Alignment.center,
+                      child: Text(
+                        average.toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 27,
+                          color: AppColors.colorOrange,
+                        ),
                       ),
                     ),
                   ],

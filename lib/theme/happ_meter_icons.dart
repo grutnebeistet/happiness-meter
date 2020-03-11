@@ -43,4 +43,5 @@ class HappMeter {
   static const IconData undo = const IconData(0xe808, fontFamily: _kFontFam);
   static const IconData trash_empty = const IconData(0xe809, fontFamily: _kFontFam);
   static const IconData trash_1 = const IconData(0xe80a, fontFamily: _kFontFam);
+  static const IconData meter_tab_png = const IconData(0xe80b, fontFamily: _kFontFam);
 }

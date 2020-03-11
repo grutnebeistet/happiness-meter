@@ -110,7 +110,7 @@ class _RecordDetailsPageState extends State<RecordDetailsPage> {
       await Share.file(
           "Bewaarde gegenvens", "$fileName.jpg", bytes, 'image/jpg',
           text:
-              "Happiness recorded ${DateUtils.getPrettyDateAndTime(record.date)}");
+              "Opgeslagen GQ ${DateUtils.getPrettyDateAndTime(record.date)}");
       setState(() {
         capturingScreen = false;
       });

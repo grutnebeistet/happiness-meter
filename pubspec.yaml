@@ -59,13 +59,16 @@ flutter:
     - assets/locale/locale_en.json
     - assets/images/tab_meter_s.png
     - assets/images/tab_meter.png
+    - assets/images/meter_tab_blue.png
+    - assets/images/meter_tab_grey.png
+    
 
 
 # https://pub.dev/packages/flutter_launcher_icons#-readme-tab-
-    # flutter_icons:
+# flutter_icons:
 #   android: "launcher_icon" 
 #   ios: true
-  # image_path: "assets/images/icon.png"
+#   image_path: "assets/images/icon.png"
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -44,8 +44,6 @@ class CustomSliderThumb extends SliderComponentShape {
     final rrect = RRect.fromRectXY(rect, 6, 6);
     rectPath.addRRect(rrect);
 
-
-
     Path linePath = Path();
     linePath.addRect(rectLine);
 

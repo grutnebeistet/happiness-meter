@@ -150,13 +150,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                     controller: _controller,
                                     tabs: [
                                       Tab(
-                                        // text: allTranslations
-                                        //     .text('main.tab_meter'),
-                                        // icon: Icon(HappMeter.params, size: 40),
-                                        icon: new Image.asset(
-                                            "assets/images/tab_meter_s.png"),
                                         text: allTranslations
                                             .text('main.tab_meter'),
+                                        icon: Icon(HappMeter.meter_tab_png, size: 40),
                                       ),
                                       Tab(
                                         text: allTranslations
