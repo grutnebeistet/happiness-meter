@@ -32,16 +32,16 @@ class HappMeter {
 
   static const _kFontFam = 'HappMeter';
 
-  static const IconData params = const IconData(0xe800, fontFamily: _kFontFam);
-  static const IconData list = const IconData(0xe801, fontFamily: _kFontFam);
-  static const IconData trash = const IconData(0xe802, fontFamily: _kFontFam);
-  static const IconData pencil = const IconData(0xe803, fontFamily: _kFontFam);
-  static const IconData equalizer = const IconData(0xe804, fontFamily: _kFontFam);
-  static const IconData list_1 = const IconData(0xe805, fontFamily: _kFontFam);
-  static const IconData pencil_1 = const IconData(0xe806, fontFamily: _kFontFam);
-  static const IconData pencil_neg = const IconData(0xe807, fontFamily: _kFontFam);
-  static const IconData undo = const IconData(0xe808, fontFamily: _kFontFam);
-  static const IconData trash_empty = const IconData(0xe809, fontFamily: _kFontFam);
-  static const IconData trash_1 = const IconData(0xe80a, fontFamily: _kFontFam);
-  static const IconData meter_tab_png = const IconData(0xe80b, fontFamily: _kFontFam);
+  static const IconData params = IconData(0xe800, fontFamily: _kFontFam);
+  static const IconData list = IconData(0xe801, fontFamily: _kFontFam);
+  static const IconData trash = IconData(0xe802, fontFamily: _kFontFam);
+  static const IconData pencil = IconData(0xe803, fontFamily: _kFontFam);
+  static const IconData equalizer = IconData(0xe804, fontFamily: _kFontFam);
+  static const IconData list_1 = IconData(0xe805, fontFamily: _kFontFam);
+  static const IconData pencil_1 = IconData(0xe806, fontFamily: _kFontFam);
+  static const IconData pencil_neg = IconData(0xe807, fontFamily: _kFontFam);
+  static const IconData undo = IconData(0xe808, fontFamily: _kFontFam);
+  static const IconData trash_empty = IconData(0xe809, fontFamily: _kFontFam);
+  static const IconData trash_1 = IconData(0xe80a, fontFamily: _kFontFam);
+  static const IconData geluks_icon_25_noshadow_grey = IconData(0xe80b, fontFamily: _kFontFam);
 }

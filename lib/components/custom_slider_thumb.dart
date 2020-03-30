@@ -47,8 +47,8 @@ class CustomSliderThumb extends SliderComponentShape {
     Path linePath = Path();
     linePath.addRect(rectLine);
 
-    canvas.drawShadow(rectPath, Colors.black, 16, true);
-    canvas.drawShadow(linePath, Colors.black, 14, false);
+    // canvas.drawShadow(rectPath, Colors.black, 16, true);
+    // canvas.drawShadow(linePath, Colors.black, 14, false);
 
     canvas.drawPath(rectPath, fillPaint);
     canvas.drawPath(linePath, fillPaintLine);

@@ -53,7 +53,7 @@ class _HappinessSliderState extends State<HappinessSlider> {
                   sliderTitle,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: primaryColor,
+                    color: Colors.blueGrey,
                     fontSize: 24,
                   ),
                 ),
@@ -99,9 +99,9 @@ class _HappinessSliderState extends State<HappinessSlider> {
         child: SliderTheme(
           data: SliderTheme.of(context).copyWith(
             overlayColor: Colors.transparent,
-            activeTrackColor: primaryColor,
-            inactiveTrackColor: inactiveColor,
-            trackHeight: 10.0,
+            activeTrackColor:  Colors.blueGrey,//(0xff8c8c8c),
+            inactiveTrackColor: Colors.blueGrey,
+            trackHeight: 25.0,
             inactiveTickMarkColor: inactiveColor,
             activeTickMarkColor: inactiveColor,
             // trackShape: CustomSliderTrack(),

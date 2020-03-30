@@ -150,7 +150,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                       Tab(
                                         text: allTranslations
                                             .text('main.tab_meter'),
-                                        icon: Icon(HappMeter.meter_tab_png,
+                                        icon: Icon(HappMeter.geluks_icon_25_noshadow_grey,
                                             size: 40),
                                       ),
                                       Tab(
