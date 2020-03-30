@@ -57,7 +57,7 @@ Container buildResultGraph(HappinessRecord record, BuildContext context) {
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width * 0.82,
-              margin: EdgeInsets.only(right: 4),
+              margin: EdgeInsets.only(right: 6),
               child: Column(children: <Widget>[
                 Container(
                   height: 25,
@@ -78,7 +78,7 @@ Container buildResultGraph(HappinessRecord record, BuildContext context) {
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      "0       1       2       3       4       5       6       7       8       9       10",
+                      "0       3       2       3       4       5       6       7       8       9       10",
                       textAlign: TextAlign.center,
                     ),
                   ),

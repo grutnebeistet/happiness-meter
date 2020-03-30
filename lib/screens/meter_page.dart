@@ -119,7 +119,7 @@ class _MeterPageState extends State<MeterPage> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.82,
-                      margin: EdgeInsets.only(right: 4),
+                      margin: EdgeInsets.only(right: 6),
                       child: Column(
                         children: <Widget>[
                           Container(

@@ -82,7 +82,6 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     translationsBloc = TranslationsBloc();
     _controller = TabController(length: 2, vsync: this);
     _controller.addListener(_onTabChange);
-    // _controller.addListener(_handleTabSelection);
   }
 
   @override
@@ -118,7 +117,6 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 length: 2,
                 child: new GestureDetector(
                   onTap: () {
-                    // FocusScope.of(context).requestFocus(new FocusNode());
                     FocusScope.of(context).unfocus();
                   },
                   child: Scaffold(
@@ -152,7 +150,8 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                                       Tab(
                                         text: allTranslations
                                             .text('main.tab_meter'),
-                                        icon: Icon(HappMeter.meter_tab_png, size: 40),
+                                        icon: Icon(HappMeter.meter_tab_png,
+                                            size: 40),
                                       ),
                                       Tab(
                                         text: allTranslations
