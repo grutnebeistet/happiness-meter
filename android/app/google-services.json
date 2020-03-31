@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "718472229549",
+    "firebase_url": "https://de-geluksmeter.firebaseio.com",
+    "project_id": "de-geluksmeter",
+    "storage_bucket": "de-geluksmeter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718472229549:android:6a049ac69a58b8fe7b8c24",
+        "android_client_info": {
+          "package_name": "com.norcanmobile.geluksmeter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718472229549-phfqcrao9qcud11otgsq7jnbk48o2dp8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL_C1l8ME_a9rfwHJM44d309TEKuKhe3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718472229549-phfqcrao9qcud11otgsq7jnbk48o2dp8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "718472229549-k5si3fmr1g3dchj7jilll8epn4tp17rj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.afroberts.ios.happinessMeter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,7 +11,7 @@ description: A new Flutter application.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
@@ -43,6 +43,8 @@ dependencies:
   intl: ^0.16.0
   # intl_translation: ^0.17.7
   rxdart: ^0.21.0
+  firebase_core: ^0.4.0+9
+  firebase_analytics: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -57,10 +59,6 @@ flutter:
   assets:
     - assets/locale/locale_nl.json
     - assets/locale/locale_en.json
-    - assets/images/tab_meter_s.png
-    - assets/images/tab_meter.png
-    - assets/images/meter_tab_blue.png
-    - assets/images/meter_tab_grey.png
     
 
 
