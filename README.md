@@ -4,6 +4,8 @@ A cross-platform Flutter application for Joost Vanhoove's PAVA-bewustzijnsmodel 
 
 # happiness-meter
 
+Developer contact: AdrianFRoberts@gmail.com
+
 <table>
     <tr>
       <th><img src="screen_meter.png" width="250"></th>
