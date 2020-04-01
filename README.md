@@ -1,8 +1,6 @@
-# The Happiness Meter - De Geluksmeter
+# De Geluksmeter - The Happiness Meter
 
 A cross-platform Flutter application for Joost Vanhoove's PAVA-bewustzijnsmodel course
-
-# happiness-meter
 
 Developer contact: AdrianFRoberts@gmail.com
 
